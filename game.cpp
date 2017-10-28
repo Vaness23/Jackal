@@ -17,10 +17,10 @@ Game::~Game()
 
 void Game::drawMap(QPainter *painter)
 {
-    QPicture tilePicture;
-    tilePicture.load("tile.png");
+//    QPicture tilePicture;
+//    tilePicture.load("tile.png");
 
-    QImage img("/Users/Ivan/Desktop/tile.png");
+    QImage img("/Users/Ivan/Documents/CPP/Jackal/img/aborigine.png");
 
     painter->drawImage(0, 0, img);
 }

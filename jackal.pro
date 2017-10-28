@@ -27,12 +27,36 @@ SOURCES += main.cpp\
         mainwindow.cpp \
     field.cpp \
     tile.cpp \
-    game.cpp
+    game.cpp \
+    ../Jackal/empty.cpp \
+    player.cpp \
+    arrow.cpp \
+    horse.cpp \
+    spinner.cpp \
+    ice.cpp \
+    trap.cpp \
+    crocodile.cpp \
+    cannibal.cpp \
+    fortress.cpp \
+    aborigine.cpp \
+    money.cpp
 
 HEADERS  += mainwindow.h \
     field.h \
     tile.h \
-    game.h
+    game.h \
+    ../Jackal/empty.h \
+    player.h \
+    arrow.h \
+    horse.h \
+    spinner.h \
+    ice.h \
+    trap.h \
+    crocodile.h \
+    cannibal.h \
+    fortress.h \
+    aborigine.h \
+    money.h
 
 FORMS    += mainwindow.ui \
     game.ui

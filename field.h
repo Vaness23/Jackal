@@ -1,6 +1,6 @@
 #include <tile.h>
 
-enum tileType {empty, arrow, horse, spinner, ice, trap, crocodile, cannibal, fortress, aborigine, chest, treasure,
+enum tileType {empty, arrow, horse, spinner, ice, trap, crocodile, cannibal, fortress, aborigine, money, treasure,
               plane, carramba, balloon, gun, lighthouse, BenGann, missioner, Friday, bottle, barrel, cave, earthquake,
               jungle, grass};
 
