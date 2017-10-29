@@ -39,7 +39,11 @@ SOURCES += main.cpp\
     cannibal.cpp \
     fortress.cpp \
     aborigine.cpp \
-    money.cpp
+    money.cpp \
+    plane.cpp \
+    balloon.cpp \
+    gun.cpp \
+    rum.cpp
 
 HEADERS  += mainwindow.h \
     field.h \
@@ -56,7 +60,11 @@ HEADERS  += mainwindow.h \
     cannibal.h \
     fortress.h \
     aborigine.h \
-    money.h
+    money.h \
+    plane.h \
+    balloon.h \
+    gun.h \
+    rum.h
 
 FORMS    += mainwindow.ui \
     game.ui

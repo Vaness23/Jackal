@@ -20,7 +20,7 @@ void Game::drawMap(QPainter *painter)
 //    QPicture tilePicture;
 //    tilePicture.load("tile.png");
 
-    QImage img("/Users/Ivan/Documents/CPP/Jackal/img/aborigine.png");
+    QImage img("/Users/Ivan/Documents/CPP/Jackal/img/empty0.png");
 
     painter->drawImage(0, 0, img);
 }
