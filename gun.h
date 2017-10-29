@@ -1,6 +1,6 @@
 #include <tile.h>
 
-class Gun
+class Gun: public Tile
 {
 public:
     Gun();

@@ -1,6 +1,6 @@
 #include <tile.h>
 
-class Balloon
+class Balloon: public Tile
 {
 public:
     Balloon();

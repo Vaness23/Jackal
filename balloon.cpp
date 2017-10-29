@@ -7,7 +7,7 @@ Balloon::Balloon()
     wait = 0;
 }
 
-void play(Player player)
+void Balloon::play(Player player)
 {
     discovered = true;
 }

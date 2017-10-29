@@ -1,6 +1,6 @@
 #include <tile.h>
 
-class Rum
+class Rum: public Tile
 {
 public:
     Rum();

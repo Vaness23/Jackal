@@ -1,6 +1,6 @@
 #include <tile.h>
 
-class Plane
+class Plane: public Tile
 {
 public:
     Plane();
