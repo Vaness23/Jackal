@@ -6,7 +6,10 @@ Game::Game(QWidget *parent) :
     ui(new Ui::Game)
 {
     ui->setupUi(this);
-//    drawMap();
+
+    scene = new QGraphicsScene(this);
+    ui->graphicsView->setScene(scene);
+    field = new Field;
 
 }
 
@@ -15,22 +18,33 @@ Game::~Game()
     delete ui;
 }
 
-void Game::drawMap(QPainter *painter)
+void Game::drawMap()
 {
-//    QPicture tilePicture;
-//    tilePicture.load("tile.png");
+    int x, y = -50;
 
-    QImage img("/Users/Ivan/Documents/CPP/Jackal/img/empty0.png");
-
-    painter->drawImage(0, 0, img);
+    for (int i = 0; i < 13; i++)
+    {
+        x = 0;
+        y += 50;
+        for(int j = 0; j < 13; j++)
+        {
+            QPixmap pic(field->getTileAt(i,j)->frontSidePath);
+            item = scene->addPixmap(pic.scaledToHeight(50));
+            item->moveBy(x,y);
+            x += 50;
+        }
+    }
 }
 
 void Game::paintEvent(QPaintEvent *event)
 {
-    QPainter painter(this);
-    drawMap(&painter);
-//    QPicture tilePicture;
-//    tilePicture.load("tile.png");
+    QWidget::paintEvent(event);
 
-//    painter.drawPicture(0, 0, tilePicture);
+    drawMap();
+}
+
+void Game::on_shuffleBtn_clicked()
+{
+    field->shuffleMap();
+    ui->graphicsView->update();
 }

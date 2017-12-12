@@ -28,43 +28,45 @@ SOURCES += main.cpp\
     field.cpp \
     tile.cpp \
     game.cpp \
-    ../Jackal/empty.cpp \
+    tiles/empty.cpp \
     player.cpp \
-    arrow.cpp \
-    horse.cpp \
-    spinner.cpp \
-    ice.cpp \
-    trap.cpp \
-    crocodile.cpp \
-    cannibal.cpp \
-    fortress.cpp \
-    aborigine.cpp \
-    money.cpp \
-    plane.cpp \
-    balloon.cpp \
-    gun.cpp \
-    rum.cpp
+    tiles/arrow.cpp \
+    tiles/horse.cpp \
+    tiles/spinner.cpp \
+    tiles/ice.cpp \
+    tiles/trap.cpp \
+    tiles/crocodile.cpp \
+    tiles/cannibal.cpp \
+    tiles/fortress.cpp \
+    tiles/aborigine.cpp \
+    tiles/money.cpp \
+    tiles/plane.cpp \
+    tiles/balloon.cpp \
+    tiles/gun.cpp \
+    tiles/water.cpp \
+    tiles/rum.cpp
 
 HEADERS  += mainwindow.h \
     field.h \
     tile.h \
     game.h \
-    ../Jackal/empty.h \
+    tiles/empty.h \
     player.h \
-    arrow.h \
-    horse.h \
-    spinner.h \
-    ice.h \
-    trap.h \
-    crocodile.h \
-    cannibal.h \
-    fortress.h \
-    aborigine.h \
-    money.h \
-    plane.h \
-    balloon.h \
-    gun.h \
-    rum.h
+    tiles/arrow.h \
+    tiles/horse.h \
+    tiles/spinner.h \
+    tiles/ice.h \
+    tiles/trap.h \
+    tiles/crocodile.h \
+    tiles/cannibal.h \
+    tiles/fortress.h \
+    tiles/aborigine.h \
+    tiles/money.h \
+    tiles/plane.h \
+    tiles/balloon.h \
+    tiles/gun.h \
+    tiles/water.h \
+    tiles/rum.h
 
 FORMS    += mainwindow.ui \
     game.ui

@@ -2,10 +2,8 @@
 #define GAME_H
 
 #include <QWidget>
-#include <QPainter>
-#include <QPoint>
-#include <QPicture>
-#include <QImage>
+#include <QGraphicsView>
+#include <QGraphicsPixmapItem>
 #include <field.h>
 
 namespace Ui {
@@ -22,9 +20,15 @@ public:
 
 private:
     Ui::Game *ui;
-    void drawMap(QPainter *painter); // нарисовать поле
+    Field* field;
+    QGraphicsScene *scene;
+    QGraphicsPixmapItem *item;
+
+    void drawMap(); // нарисовать поле
 protected:
     void paintEvent (QPaintEvent *event);
+private slots:
+    void on_shuffleBtn_clicked();
 };
 
 #endif // GAME_H

@@ -25,3 +25,8 @@ void Empty::play(Player player)
 {
     discovered = true;
 }
+
+Tile *Empty::create()
+{
+    return new Empty;
+}
