@@ -8,5 +8,7 @@ Tile::Tile()
     for (int i = 0; i < 8; i++)
         movement[i] = true;
     coins = 0;
-    frontSidePath = "/Users/Ivan/Documents/CPP/Jackal/img/tile.png";
+    backSide = QPixmap("/Users/Ivan/Documents/CPP/Jackal/img/tile.png").scaledToHeight(50);
+    setPixmap(backSide);
+    //frontSidePath = "/Users/Ivan/Documents/CPP/Jackal/img/tile.png";
 }

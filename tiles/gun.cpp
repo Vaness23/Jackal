@@ -6,3 +6,8 @@ Gun::Gun()
 
     wait = 0;
 }
+
+void Gun::play(Player player)
+{
+
+}

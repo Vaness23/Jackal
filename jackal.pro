@@ -28,6 +28,8 @@ SOURCES += main.cpp\
     field.cpp \
     tile.cpp \
     game.cpp \
+    ship.cpp \
+    pirate.cpp \
     tiles/empty.cpp \
     player.cpp \
     tiles/arrow.cpp \
@@ -50,6 +52,8 @@ HEADERS  += mainwindow.h \
     field.h \
     tile.h \
     game.h \
+    ship.h \
+    pirate.h \
     tiles/empty.h \
     player.h \
     tiles/arrow.h \

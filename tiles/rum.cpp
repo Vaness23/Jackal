@@ -6,3 +6,8 @@ Rum::Rum()
 
     wait = 2;
 }
+
+void Rum::play(Player player)
+{
+
+}

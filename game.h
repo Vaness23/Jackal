@@ -17,14 +17,17 @@ class Game : public QWidget
 public:
     explicit Game(QWidget *parent = 0);
     ~Game();
+    void drawMap(); // нарисовать поле
 
 private:
     Ui::Game *ui;
-    Field* field;
     QGraphicsScene *scene;
-    QGraphicsPixmapItem *item;
+    QGraphicsItem *tile;
 
-    void drawMap(); // нарисовать поле
+    Field* field;
+    Player* players[4]; // список игроков
+    void arrangeShips(); // расставить корабли и пиратов
+
 protected:
     void paintEvent (QPaintEvent *event);
 private slots:

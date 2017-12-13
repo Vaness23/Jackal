@@ -22,10 +22,10 @@ public:
     Field();
     void show(); // показать все клетки
     void hide(); // спрятать все клетки
-    Tile* getTileAt(int x, int y);
+    Tile* getTileAt(int x, int y) {return map[x][y];}
     void shuffleMap(); // перемешать клетки БУДЕТ ПРИВАТНОЙ КАК ТАНЕЦ МУСУЛЬМАНКИ
 private:
     void fill(); // заполнить поле клетками
-    void shuffleArray(Tile *array[], int length); // перемешать массив
+//    void shuffleArray(Tile *array[], int length); // перемешать массив
     Tile* map[13][13]; // поле
 };

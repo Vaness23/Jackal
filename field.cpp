@@ -2,15 +2,9 @@
 #include <chrono>
 #include <random>
 
-Field::Field()
-{
+Field::Field(){
     fill(); // заполнение поля клетками
     shuffleMap();
-}
-
-Tile *Field::getTileAt(int x, int y)
-{
-    return map[x][y];
 }
 
 void Field::fill()
@@ -104,7 +98,7 @@ void Field::fill()
 void Field::shuffleMap()
 {
     Tile *smallArray[9], *largeArray[11];
-    int row, col;
+    int row;
 
     // Сортировка 1-го столбца суши
 
@@ -161,21 +155,4 @@ void Field::shuffleMap()
     std::shuffle(&map[11][2], &map[11][11], std::default_random_engine(seed));
 }
 
-void Field::shuffleArray(Tile *array[], int length)
-{
 
-    unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
-    Tile* arrayCopy[length];
-    for (int i = 0; i < length; i++)
-        arrayCopy[i] = array[i];
-
-    int unshuffled = length, randIndex;
-
-    for (int i = 0; i < length; i++)
-    {
-        randIndex = seed % unshuffled;
-        array[i] = arrayCopy[randIndex];
-        arrayCopy[randIndex] = array[unshuffled-1];
-        unshuffled--;
-    }
-}

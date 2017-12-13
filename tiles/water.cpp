@@ -2,8 +2,8 @@
 
 Water::Water()
 {
-    frontSidePath = "/Users/Ivan/Documents/CPP/Jackal/img/water.png";
-
+//    frontSidePath = "/Users/Ivan/Documents/CPP/Jackal/img/water.png";
+    setPixmap(QPixmap("/Users/Ivan/Documents/CPP/Jackal/img/water.png").scaledToHeight(50));
     wait = 0;
 }
 
