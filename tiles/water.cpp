@@ -7,7 +7,7 @@ Water::Water()
     wait = 0;
 }
 
-void Water::play(Player player)
+void Water::play()
 {
 
 }

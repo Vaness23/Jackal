@@ -4,5 +4,5 @@ class Plane: public Tile
 {
 public:
     Plane();
-    void play(Player player);
+    void play();
 };

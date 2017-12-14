@@ -2,13 +2,12 @@
 
 Ice::Ice()
 {
-    frontSidePath = "/Users/Ivan/Documents/CPP/Jackal/img/ice.png";
+    frontSide = QPixmap("/Users/Ivan/Documents/CPP/Jackal/img/ice.png").scaledToHeight(50);
 
     wait = 0;
 }
 
-void Ice::play(Player player)
+void Ice::play()
 {
-    discovered = true;
-
+    Tile::play();
 }

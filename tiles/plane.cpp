@@ -2,12 +2,12 @@
 
 Plane::Plane()
 {
-    frontSidePath = "/Users/Ivan/Documents/CPP/Jackal/img/plane.png";
+    frontSide = QPixmap("/Users/Ivan/Documents/CPP/Jackal/img/plane.png").scaledToHeight(50);
 
     wait = 0;
 }
 
-void Plane::play(Player player)
+void Plane::play()
 {
-    discovered = true;
+    Tile::play();
 }

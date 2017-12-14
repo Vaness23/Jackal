@@ -2,12 +2,12 @@
 
 Fortress::Fortress()
 {
-    frontSidePath = "/Users/Ivan/Documents/CPP/Jackal/img/fortress.png";
+    frontSide = QPixmap("/Users/Ivan/Documents/CPP/Jackal/img/fortress.png").scaledToHeight(50);
 
     wait = 1;
 }
 
-void Fortress::play(Player player)
+void Fortress::play()
 {
-    discovered = true;
+    Tile::play();
 }

@@ -22,18 +22,16 @@ class Tile: public GameObject
 {
 public:
     Tile();
-    bool discovered; // открыта ли клетка
     bool visible; // есть ли клетка на поле
     int wait; // количество ходов ожидания
     bool movement[8]; // направления следующего хода
-    QString frontSidePath; // путь к изображению лицевой стороны клетки
-    QPixmap backSide;
     int coins; // монеты на клетке
-    virtual void play(Player player) = 0;
+    virtual void play();
     objectType getType();
 protected:
-    int size; // размер клетки
-    std::string backSidePath; // путь к изображению рубашки клетки
+    bool discovered; // открыта ли клетка
+//    QString frontSidePath; // путь к изображению лицевой стороны клетки
+    QPixmap backSide, frontSide;
 };
 
 #endif

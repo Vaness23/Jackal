@@ -7,23 +7,23 @@ Empty::Empty()
     switch (numPic)
     {
         case 0:
-            frontSidePath = "/Users/Ivan/Documents/CPP/Jackal/img/empty0.png";
+            frontSide = QPixmap("/Users/Ivan/Documents/CPP/Jackal/img/empty0.png").scaledToHeight(50);
             break;
         case 1:
-            frontSidePath = "/Users/Ivan/Documents/CPP/Jackal/img/empty1.png";
+            frontSide = QPixmap("/Users/Ivan/Documents/CPP/Jackal/img/empty1.png").scaledToHeight(50);
             break;
         case 2:
-            frontSidePath = "/Users/Ivan/Documents/CPP/Jackal/img/empty2.png";
+            frontSide = QPixmap("/Users/Ivan/Documents/CPP/Jackal/img/empty2.png").scaledToHeight(50);
             break;
         case 3:
-            frontSidePath = "/Users/Ivan/Documents/CPP/Jackal/img/empty3.png";
+            frontSide = QPixmap("/Users/Ivan/Documents/CPP/Jackal/img/empty3.png").scaledToHeight(50);
             break;
     }
 }
 
-void Empty::play(Player player)
+void Empty::play()
 {
-    discovered = true;
+    Tile::play();
 }
 
 Tile *Empty::create()

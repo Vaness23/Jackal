@@ -2,12 +2,14 @@
 
 Aborigine::Aborigine()
 {
-    frontSidePath = "/Users/Ivan/Documents/CPP/Jackal/img/aborigine.png";
+//    frontSidePath = "/Users/Ivan/Documents/CPP/Jackal/img/aborigine.png";
+
+    frontSide = QPixmap("/Users/Ivan/Documents/CPP/Jackal/img/aborigine.png").scaledToHeight(50);
 
     wait = 1;
 }
 
-void Aborigine::play(Player player)
+void Aborigine::play()
 {
-    discovered = true;
+    Tile::play();
 }

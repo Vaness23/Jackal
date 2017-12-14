@@ -4,5 +4,5 @@ class Gun: public Tile
 {
 public:
     Gun();
-    void play(Player player);
+    void play();
 };

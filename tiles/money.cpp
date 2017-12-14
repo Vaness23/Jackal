@@ -25,19 +25,19 @@ Money::Money()
     switch (chest[numPic])
     {
         case 1:
-            frontSidePath = "/Users/Ivan/Documents/CPP/Jackal/img/money1.png";
+            frontSide = QPixmap("/Users/Ivan/Documents/CPP/Jackal/img/money1.png").scaledToHeight(50);
             break;
         case 2:
-            frontSidePath = "/Users/Ivan/Documents/CPP/Jackal/img/money2.png";
+            frontSide = QPixmap("/Users/Ivan/Documents/CPP/Jackal/img/money2.png").scaledToHeight(50);
             break;
         case 3:
-            frontSidePath = "/Users/Ivan/Documents/CPP/Jackal/img/money3.png";
+            frontSide = QPixmap("/Users/Ivan/Documents/CPP/Jackal/img/money3.png").scaledToHeight(50);
             break;
         case 4:
-            frontSidePath = "/Users/Ivan/Documents/CPP/Jackal/img/money4.png";
+            frontSide = QPixmap("/Users/Ivan/Documents/CPP/Jackal/img/money4.png").scaledToHeight(50);
             break;
         case 5:
-            frontSidePath = "/Users/Ivan/Documents/CPP/Jackal/img/money5.png";
+            frontSide = QPixmap("/Users/Ivan/Documents/CPP/Jackal/img/money5.png").scaledToHeight(50);
             break;
     }
 }
@@ -49,24 +49,24 @@ Money::Money(int coins)
     switch (coins)
     {
         case 1:
-            frontSidePath = "/Users/Ivan/Documents/CPP/Jackal/img/money1.png";
+            frontSide = QPixmap("/Users/Ivan/Documents/CPP/Jackal/img/money1.png").scaledToHeight(50);
             break;
         case 2:
-            frontSidePath = "/Users/Ivan/Documents/CPP/Jackal/img/money2.png";
+            frontSide = QPixmap("/Users/Ivan/Documents/CPP/Jackal/img/money2.png").scaledToHeight(50);
             break;
         case 3:
-            frontSidePath = "/Users/Ivan/Documents/CPP/Jackal/img/money3.png";
+            frontSide = QPixmap("/Users/Ivan/Documents/CPP/Jackal/img/money3.png").scaledToHeight(50);
             break;
         case 4:
-            frontSidePath = "/Users/Ivan/Documents/CPP/Jackal/img/money4.png";
+            frontSide = QPixmap("/Users/Ivan/Documents/CPP/Jackal/img/money4.png").scaledToHeight(50);
             break;
         case 5:
-            frontSidePath = "/Users/Ivan/Documents/CPP/Jackal/img/money5.png";
+            frontSide = QPixmap("/Users/Ivan/Documents/CPP/Jackal/img/money5.png").scaledToHeight(50);
             break;
     }
 }
 
-void Money::play(Player player)
+void Money::play()
 {
-    discovered = true;
+    Tile::play();
 }

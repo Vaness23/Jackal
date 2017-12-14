@@ -8,6 +8,7 @@ Game::Game(QWidget *parent) :
     ui->setupUi(this);
     field = new Field;
     scene = new GameScene(this);
+//    scene->setSceneRect(0, 0, 650, 650);
     ui->graphicsView->setScene(scene);
 
     players[0] = new Player("white");
@@ -60,6 +61,7 @@ void Game::makeTurn()
     if (scene->chosenPirate && scene->chosenTile)
     {
         scene->chosenPirate->moveTo(scene->chosenTile);
+        scene->chosenTile->play();
         ui->graphicsView->update();
     }
     if (scene->chosenShip && scene->chosenTile)

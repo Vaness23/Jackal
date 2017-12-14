@@ -4,5 +4,5 @@ class Cannibal: public Tile
 {
 public:
     Cannibal();
-    void play(Player player);
+    void play();
 };

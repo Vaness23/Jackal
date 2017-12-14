@@ -2,12 +2,12 @@
 
 Crocodile::Crocodile()
 {
-    frontSidePath = "/Users/Ivan/Documents/CPP/Jackal/img/crocodile.png";
+    frontSide = QPixmap("/Users/Ivan/Documents/CPP/Jackal/img/crocodile.png").scaledToHeight(50);
 
     wait = 0;
 }
 
-void Crocodile::play(Player player)
+void Crocodile::play()
 {
-    discovered = true;
+    Tile::play();
 }

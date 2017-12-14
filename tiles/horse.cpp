@@ -2,12 +2,12 @@
 
 Horse::Horse()
 {
-    frontSidePath = "/Users/Ivan/Documents/CPP/Jackal/img/horse.png";
+    frontSide = QPixmap("/Users/Ivan/Documents/CPP/Jackal/img/horse.png").scaledToHeight(50);
 
     wait = 0;
 }
 
-void Horse::play(Player player)
+void Horse::play()
 {
-    discovered = true;
+    Tile::play();
 }

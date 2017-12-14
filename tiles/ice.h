@@ -4,5 +4,5 @@ class Ice: public Tile
 {
 public:
     Ice();
-    void play(Player player);
+    void play();
 };

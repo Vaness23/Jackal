@@ -2,12 +2,12 @@
 
 Trap::Trap()
 {
-    frontSidePath = "/Users/Ivan/Documents/CPP/Jackal/img/trap.png";
+    frontSide = QPixmap("/Users/Ivan/Documents/CPP/Jackal/img/trap.png").scaledToHeight(50);
 
     wait = 1000;
 }
 
-void Trap::play(Player player)
+void Trap::play()
 {
-    discovered = true;
+    Tile::play();
 }

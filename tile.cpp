@@ -13,6 +13,15 @@ Tile::Tile()
     //frontSidePath = "/Users/Ivan/Documents/CPP/Jackal/img/tile.png";
 }
 
+void Tile::play()
+{
+    if (!discovered)
+    {
+        discovered = true;
+        setPixmap(frontSide);
+    }
+}
+
 objectType Tile::getType()
 {
     return tile;

@@ -2,12 +2,12 @@
 
 Gun::Gun()
 {
-    frontSidePath = "/Users/Ivan/Documents/CPP/Jackal/img/gun.png";
+    frontSide = QPixmap("/Users/Ivan/Documents/CPP/Jackal/img/gun.png").scaledToHeight(50);
 
     wait = 0;
 }
 
-void Gun::play(Player player)
+void Gun::play()
 {
-
+    Tile::play();
 }

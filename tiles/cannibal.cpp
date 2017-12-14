@@ -2,12 +2,12 @@
 
 Cannibal::Cannibal()
 {
-    frontSidePath = "/Users/Ivan/Documents/CPP/Jackal/img/cannibal.png";
+    frontSide = QPixmap("/Users/Ivan/Documents/CPP/Jackal/img/cannibal.png").scaledToHeight(50);
 
     wait = 1000;
 }
 
-void Cannibal::play(Player player)
+void Cannibal::play()
 {
-    discovered = true;
+    Tile::play();
 }

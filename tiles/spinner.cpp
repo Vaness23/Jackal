@@ -20,25 +20,25 @@ Spinner::Spinner()
     switch (spinner[numPic])
     {
         case 0:
-            frontSidePath = "/Users/Ivan/Documents/CPP/Jackal/img/spinner0.png";
+            frontSide = QPixmap("/Users/Ivan/Documents/CPP/Jackal/img/spinner0.png").scaledToHeight(50);
             wait = 2;
             break;
         case 1:
-            frontSidePath = "/Users/Ivan/Documents/CPP/Jackal/img/spinner1.png";
+            frontSide = QPixmap("/Users/Ivan/Documents/CPP/Jackal/img/spinner1.png").scaledToHeight(50);
             wait = 3;
             break;
         case 2:
-            frontSidePath = "/Users/Ivan/Documents/CPP/Jackal/img/spinner2.png";
+            frontSide = QPixmap("/Users/Ivan/Documents/CPP/Jackal/img/spinner2.png").scaledToHeight(50);
             wait = 4;
             break;
         case 3:
-            frontSidePath = "/Users/Ivan/Documents/CPP/Jackal/img/spinner3.png";
+            frontSide = QPixmap("/Users/Ivan/Documents/CPP/Jackal/img/spinner3.png").scaledToHeight(50);
             wait = 5;
             break;
     }
 }
 
-void Spinner::play(Player player)
+void Spinner::play()
 {
-    discovered = true;
+    Tile::play();
 }

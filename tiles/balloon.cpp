@@ -2,12 +2,12 @@
 
 Balloon::Balloon()
 {
-    frontSidePath = "/Users/Ivan/Documents/CPP/Jackal/img/balloon.png";
+    frontSide = QPixmap("/Users/Ivan/Documents/CPP/Jackal/img/balloon.png").scaledToHeight(50);
 
     wait = 0;
 }
 
-void Balloon::play(Player player)
+void Balloon::play()
 {
-    discovered = true;
+    Tile::play();
 }

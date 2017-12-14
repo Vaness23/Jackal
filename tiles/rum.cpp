@@ -2,12 +2,12 @@
 
 Rum::Rum()
 {
-    frontSidePath = "/Users/Ivan/Documents/CPP/Jackal/img/rum.png";
+    frontSide = QPixmap("/Users/Ivan/Documents/CPP/Jackal/img/rum.png").scaledToHeight(50);
 
     wait = 2;
 }
 
-void Rum::play(Player player)
+void Rum::play()
 {
-
+    Tile::play();
 }
