@@ -7,7 +7,8 @@ Balloon::Balloon()
     wait = 0;
 }
 
-void Balloon::play()
+void Balloon::play(Pirate pirate)
 {
     Tile::play();
+    pirate.movementPoints -= wait;
 }

@@ -4,5 +4,5 @@ class Rum: public Tile
 {
 public:
     Rum();
-    void play();
+    void play(Pirate pirate);
 };

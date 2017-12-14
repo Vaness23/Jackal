@@ -4,5 +4,5 @@ class Balloon: public Tile
 {
 public:
     Balloon();
-    void play();
+    void play(Pirate pirate);
 };

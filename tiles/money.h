@@ -5,5 +5,5 @@ class Money: public Tile
 public:
     Money();
     Money(int coins);
-    void play();
+    void play(Pirate pirate);
 };

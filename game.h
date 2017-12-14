@@ -34,7 +34,9 @@ private:
     void arrangeShips(); // расставить корабли и пиратов
     void makeTurn(); // сделать ход (передвижение)
     void endTurn(); // завершить ход
-
+    bool checkTile(Pirate* chosenPirate, Tile* chosenTile);
+    bool checkTile(Ship* chosenShip, Tile* chosenTile);
+    bool checkShip(Pirate* chosenPirate, Ship* chosenShip);
 protected:
     void paintEvent (QPaintEvent *event);
     void mousePressEvent(QMouseEvent *mouseEvent);

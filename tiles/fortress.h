@@ -4,5 +4,5 @@ class Fortress: public Tile
 {
 public:
     Fortress();
-    void play();
+    void play(Pirate pirate);
 };

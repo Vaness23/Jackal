@@ -7,7 +7,8 @@ Fortress::Fortress()
     wait = 1;
 }
 
-void Fortress::play()
+void Fortress::play(Pirate pirate)
 {
     Tile::play();
+    pirate.movementPoints -= wait;
 }

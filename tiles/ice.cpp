@@ -7,7 +7,8 @@ Ice::Ice()
     wait = 0;
 }
 
-void Ice::play()
+void Ice::play(Pirate pirate)
 {
     Tile::play();
+    pirate.movementPoints -= wait;
 }

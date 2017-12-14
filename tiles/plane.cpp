@@ -7,7 +7,8 @@ Plane::Plane()
     wait = 0;
 }
 
-void Plane::play()
+void Plane::play(Pirate pirate)
 {
     Tile::play();
+    pirate.movementPoints -= wait;
 }

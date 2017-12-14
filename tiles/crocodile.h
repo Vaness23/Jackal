@@ -4,5 +4,5 @@ class Crocodile: public Tile
 {
 public:
     Crocodile();
-    void play();
+    void play(Pirate pirate);
 };

@@ -7,7 +7,8 @@ Horse::Horse()
     wait = 0;
 }
 
-void Horse::play()
+void Horse::play(Pirate pirate)
 {
     Tile::play();
+    pirate.movementPoints -= wait;
 }

@@ -14,6 +14,7 @@ public:
     void die(); // убить пирата
     void resurrect(); // воскресить пирата
     objectType getType();
+    int movementPoints;
 private:
     bool alive;
     bool coin;

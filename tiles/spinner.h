@@ -4,5 +4,5 @@ class Spinner: public Tile
 {
 public:
     Spinner();
-    void play();
+    void play(Pirate pirate);
 };

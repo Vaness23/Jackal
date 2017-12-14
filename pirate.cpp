@@ -4,6 +4,7 @@ Pirate::Pirate()
 {
     alive = true;
     coin = false;
+    movementPoints = 1;
 
     setPixmap(QPixmap("/Users/Ivan/Documents/CPP/Jackal/img/pirate.png"));
 }

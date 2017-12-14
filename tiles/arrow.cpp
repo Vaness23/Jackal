@@ -42,7 +42,8 @@ Arrow::Arrow()
     }
 }
 
-void Arrow::play()
+void Arrow::play(Pirate pirate)
 {
     Tile::play();
+    pirate.movementPoints -= wait;
 }

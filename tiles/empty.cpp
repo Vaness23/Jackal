@@ -2,6 +2,8 @@
 
 Empty::Empty()
 {
+    wait = 1;
+
     int numPic = rand() % 4;
 
     switch (numPic)
@@ -21,12 +23,8 @@ Empty::Empty()
     }
 }
 
-void Empty::play()
+void Empty::play(Pirate pirate)
 {
     Tile::play();
-}
-
-Tile *Empty::create()
-{
-    return new Empty;
+    pirate.movementPoints -= wait;
 }

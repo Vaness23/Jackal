@@ -4,6 +4,8 @@ Money::Money()
 {
     int i, chest[16];
 
+    wait = 1;
+
     for (i = 0; i < 5; i++)
         chest[i] = 1;
 
@@ -44,6 +46,8 @@ Money::Money()
 
 Money::Money(int coins)
 {
+    wait = 1;
+
     this->coins = coins;
 
     switch (coins)
@@ -66,7 +70,8 @@ Money::Money(int coins)
     }
 }
 
-void Money::play()
+void Money::play(Pirate pirate)
 {
     Tile::play();
+    pirate.movementPoints -= wait;
 }

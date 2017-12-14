@@ -4,5 +4,5 @@ class Horse: public Tile
 {
 public:
     Horse();
-    void play();
+    void play(Pirate pirate);
 };

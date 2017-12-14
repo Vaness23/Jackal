@@ -1,10 +1,49 @@
 #include "field.h"
 #include <chrono>
 #include <random>
+#include <cmath>
 
 Field::Field(){
     fill(); // заполнение поля клетками
     shuffleMap();
+}
+
+Index Field::getTileIndex(Tile *tile)
+{
+    Index coordinates;
+    coordinates.x = -1;
+    coordinates.y = -1;
+
+    for (int i = 0; i < 13 && coordinates.x == -1; i++)
+        for (int j = 0; j < 13 && coordinates.x == -1; j++)
+            if (map[i][j] == tile)
+            {
+                coordinates.x = j;
+                coordinates.y = i;
+            }
+
+    return coordinates;
+}
+
+bool Field::isPirateMoveOk(Tile *current, Tile *next)
+{
+    if ((abs(getTileIndex(next).x - getTileIndex(current).x) <= 1) && (abs(getTileIndex(next).y - getTileIndex(current).y) <= 1))
+    {
+        return true;
+    }
+
+    else
+        return false;
+}
+
+bool Field::isShipMoveOk(Tile *current, Tile *next)
+{
+
+}
+
+bool Field::isPirateToShipOk(Tile *pirateTile, Tile *shipTile)
+{
+
 }
 
 void Field::fill()

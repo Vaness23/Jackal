@@ -7,7 +7,8 @@ Crocodile::Crocodile()
     wait = 0;
 }
 
-void Crocodile::play()
+void Crocodile::play(Pirate pirate)
 {
     Tile::play();
+    pirate.movementPoints -= wait;
 }

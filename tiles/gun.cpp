@@ -7,7 +7,8 @@ Gun::Gun()
     wait = 0;
 }
 
-void Gun::play()
+void Gun::play(Pirate pirate)
 {
     Tile::play();
+    pirate.movementPoints -= wait;
 }

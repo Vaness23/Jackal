@@ -40,12 +40,12 @@ void Game::drawMap()
         }
     }
     arrangeShips();
-    ui->graphicsView->rotate(90);
+//    ui->graphicsView->rotate(90);
 }
 
 void Game::beginTurn()
 {
-    ui->graphicsView->rotate(90);
+//    ui->graphicsView->rotate(90);
 }
 
 void Game::arrangeShips()
@@ -58,23 +58,41 @@ void Game::arrangeShips()
 
 void Game::makeTurn()
 {
-    if (scene->chosenPirate && scene->chosenTile)
+    if ((scene->chosenPirate && scene->chosenTile) && // если выбраны пират и клетка
+        (   // если пират принадлежит активному игроку
+            scene->chosenPirate == &players[activePlayerNum]->pirates[0]
+            || scene->chosenPirate == &players[activePlayerNum]->pirates[1]
+            || scene->chosenPirate == &players[activePlayerNum]->pirates[2]
+            || scene->chosenPirate == &players[activePlayerNum]->pirates[3]
+        )
+        && checkTile(scene->chosenPirate, scene->chosenTile)) // если пирату доступна клетка
     {
         scene->chosenPirate->moveTo(scene->chosenTile);
         scene->chosenTile->play();
         ui->graphicsView->update();
+        endTurn();
     }
-    if (scene->chosenShip && scene->chosenTile)
+    else if (scene->chosenShip && scene->chosenTile // если выбраны корабль и клетка
+        && scene->chosenShip == &players[activePlayerNum]->ship // если корабль принадлежит активному игроку
+        && checkTile(scene->chosenShip, scene->chosenTile)) // если кораблю доступна клетка
     {
         scene->chosenShip->moveTo(scene->chosenTile);
         ui->graphicsView->update();
+        endTurn();
     }
-    if (scene->chosenPirate && scene->chosenShip)
+    else if (scene->chosenPirate && scene->chosenShip && // если выбраны пират и корабль
+        (   // если пират принадлежит активному игроку
+            scene->chosenPirate == &players[activePlayerNum]->pirates[0]
+            || scene->chosenPirate == &players[activePlayerNum]->pirates[1]
+            || scene->chosenPirate == &players[activePlayerNum]->pirates[2]
+            || scene->chosenPirate == &players[activePlayerNum]->pirates[3]
+        )
+        && checkShip(scene->chosenPirate, scene->chosenShip)) // если пирату доступен переход на корабль
     {
         scene->chosenPirate->moveTo(scene->chosenShip);
         ui->graphicsView->update();
+        endTurn();
     }
-    endTurn();
 }
 
 void Game::endTurn()
@@ -87,6 +105,27 @@ void Game::endTurn()
     scene->chosenPirate = NULL;
     scene->chosenShip = NULL;
     scene->chosenTile = NULL;
+}
+
+bool Game::checkTile(Pirate *chosenPirate, Tile *chosenTile)
+{
+    Tile* currentTile = static_cast<Tile*>(chosenPirate->parentItem());
+
+    if (currentTile->getType() == ship)
+        currentTile = static_cast<Tile*>(currentTile->parentItem());
+
+    if (currentTile == chosenTile && (currentTile->wait) > 1) // для клеток с задержкой передвижения
+    {
+        chosenPirate->movementPoints++;
+    }
+    else
+        return field->isPirateMoveOk(currentTile, chosenTile);
+}
+
+bool Game::checkTile(Ship *chosenShip, Tile *chosenTile)
+{
+    Tile* currentTile = static_cast<Tile*>(chosenShip->parentItem());
+    return field->isShipMoveOk(currentTile, chosenTile);
 }
 
 void Game::paintEvent(QPaintEvent *event)
@@ -115,7 +154,14 @@ void Game::mousePressEvent(QMouseEvent *mouseEvent)
             makeTurn();
         }
 
-//    }
+        //    }
+}
+
+bool Game::checkShip(Pirate *chosenPirate, Ship *chosenShip)
+{
+    Tile* pirateTile = static_cast<Tile*>(chosenPirate->parentItem());
+    Tile* shipTile = static_cast<Tile*>(chosenShip->parentItem());
+    return field->isPirateToShipOk(pirateTile, shipTile);
 }
 
 //начать ход (активирует нужные фишки и переворачивает поле)

@@ -38,7 +38,8 @@ Spinner::Spinner()
     }
 }
 
-void Spinner::play()
+void Spinner::play(Pirate pirate)
 {
     Tile::play();
+    pirate.movementPoints -= wait;
 }

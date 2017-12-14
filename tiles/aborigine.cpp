@@ -9,7 +9,8 @@ Aborigine::Aborigine()
     wait = 1;
 }
 
-void Aborigine::play()
+void Aborigine::play(Pirate pirate)
 {
     Tile::play();
+    pirate.movementPoints -= wait;
 }

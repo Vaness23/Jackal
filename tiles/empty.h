@@ -4,6 +4,5 @@ class Empty: public Tile
 {
 public:
     Empty();
-    void play();
-    static Tile* create();
+    void play(Pirate pirate);
 };
