@@ -4,6 +4,9 @@
 #include <QWidget>
 #include <QGraphicsView>
 #include <QGraphicsPixmapItem>
+#include <QMouseEvent>
+#include <QPoint>
+#include <gamescene.h>
 #include <field.h>
 
 namespace Ui {
@@ -18,18 +21,23 @@ public:
     explicit Game(QWidget *parent = 0);
     ~Game();
     void drawMap(); // нарисовать поле
+    void beginTurn(); // начать ход
 
 private:
     Ui::Game *ui;
-    QGraphicsScene *scene;
+    GameScene *scene;
     QGraphicsItem *tile;
 
     Field* field;
     Player* players[4]; // список игроков
+    int activePlayerNum; // номер активного игрока
     void arrangeShips(); // расставить корабли и пиратов
+    void makeTurn(); // сделать ход (передвижение)
+    void endTurn(); // завершить ход
 
 protected:
     void paintEvent (QPaintEvent *event);
+    void mousePressEvent(QMouseEvent *mouseEvent);
 private slots:
     void on_shuffleBtn_clicked();
 };

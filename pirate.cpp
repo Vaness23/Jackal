@@ -10,7 +10,7 @@ Pirate::Pirate()
 
 void Pirate::moveTo(QGraphicsItem *nextTile)
 {
-
+    setParentItem(nextTile);
 }
 
 void Pirate::pickUpCoin()
@@ -42,3 +42,9 @@ void Pirate::resurrect()
 {
     alive = true;
 }
+
+objectType Pirate::getType()
+{
+    return pirate;
+}
+

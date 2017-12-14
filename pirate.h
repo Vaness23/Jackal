@@ -1,6 +1,8 @@
-#include <QGraphicsItem>
+#ifndef PIRATE_H
+#define PIRATE_H
+#include <gameobject.h>
 
-class Pirate: public QGraphicsPixmapItem
+class Pirate: public GameObject
 {
 public:
     Pirate();
@@ -11,7 +13,9 @@ public:
     bool isAlive(); // getter
     void die(); // убить пирата
     void resurrect(); // воскресить пирата
+    objectType getType();
 private:
     bool alive;
     bool coin;
 };
+#endif

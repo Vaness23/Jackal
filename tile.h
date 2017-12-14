@@ -4,7 +4,7 @@
 #include <QString>
 #include <player.h>
 #include <cstdlib>
-#include <QGraphicsPixmapItem>
+#include <gameobject.h>
 
 #define N  0
 #define NE 1
@@ -18,7 +18,7 @@
 enum tileType {empty, arrow, horse, spinner, ice, trap, crocodile, cannibal, fortress,
                aborigine, money, plane, balloon, gun, rum};
 
-class Tile: public QGraphicsPixmapItem
+class Tile: public GameObject
 {
 public:
     Tile();
@@ -30,6 +30,7 @@ public:
     QPixmap backSide;
     int coins; // монеты на клетке
     virtual void play(Player player) = 0;
+    objectType getType();
 protected:
     int size; // размер клетки
     std::string backSidePath; // путь к изображению рубашки клетки

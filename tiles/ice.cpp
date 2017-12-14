@@ -10,4 +10,5 @@ Ice::Ice()
 void Ice::play(Player player)
 {
     discovered = true;
+
 }

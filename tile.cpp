@@ -12,3 +12,8 @@ Tile::Tile()
     setPixmap(backSide);
     //frontSidePath = "/Users/Ivan/Documents/CPP/Jackal/img/tile.png";
 }
+
+objectType Tile::getType()
+{
+    return tile;
+}

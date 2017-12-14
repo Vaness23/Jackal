@@ -7,7 +7,7 @@ Game::Game(QWidget *parent) :
 {
     ui->setupUi(this);
     field = new Field;
-    scene = new QGraphicsScene(this);
+    scene = new GameScene(this);
     ui->graphicsView->setScene(scene);
 
     players[0] = new Player("white");
@@ -15,7 +15,7 @@ Game::Game(QWidget *parent) :
     players[2] = new Player("red");
     players[3] = new Player("blue");
 
-
+    activePlayerNum = 0;
 }
 
 Game::~Game()
@@ -29,22 +29,22 @@ void Game::drawMap()
 
     for (int i = 0; i < 13; i++, x = 0, y += 50)
     {
-//        x = 0;
-//        y += 50;
         for(int j = 0; j < 13; j++)
-        {
-            //QPixmap pic(field->getTileAt(i,j)->frontSidePath);
-            //item = scene->addPixmap(pic.scaledToHeight(50));
+        {       
             tile = field->getTileAt(i,j);
-//            tile->moveBy(0, 0);
             tile->setPos(x,y);
             scene->addItem(tile);
 
             x += 50;
         }
     }
-    //tile = scene->addPixmap(QPixmap("/Users/Ivan/Documents/CPP/Jackal/img/pirate.png"));
-    //tile->setFlag(QGraphicsItem::ItemIsMovable);
+    arrangeShips();
+    ui->graphicsView->rotate(90);
+}
+
+void Game::beginTurn()
+{
+    ui->graphicsView->rotate(90);
 }
 
 void Game::arrangeShips()
@@ -53,6 +53,38 @@ void Game::arrangeShips()
     players[1]->ship.setParentItem(field->getTileAt(6, 12));
     players[2]->ship.setParentItem(field->getTileAt(12, 6));
     players[3]->ship.setParentItem(field->getTileAt(6, 0));
+}
+
+void Game::makeTurn()
+{
+    if (scene->chosenPirate && scene->chosenTile)
+    {
+        scene->chosenPirate->moveTo(scene->chosenTile);
+        ui->graphicsView->update();
+    }
+    if (scene->chosenShip && scene->chosenTile)
+    {
+        scene->chosenShip->moveTo(scene->chosenTile);
+        ui->graphicsView->update();
+    }
+    if (scene->chosenPirate && scene->chosenShip)
+    {
+        scene->chosenPirate->moveTo(scene->chosenShip);
+        ui->graphicsView->update();
+    }
+    endTurn();
+}
+
+void Game::endTurn()
+{
+    activePlayerNum++;
+
+    if (activePlayerNum == 4)
+        activePlayerNum = 0;
+
+    scene->chosenPirate = NULL;
+    scene->chosenShip = NULL;
+    scene->chosenTile = NULL;
 }
 
 void Game::paintEvent(QPaintEvent *event)
@@ -66,6 +98,30 @@ void Game::on_shuffleBtn_clicked()
 {
     field->shuffleMap();
     drawMap();
-    arrangeShips();
     ui->graphicsView->update();
 }
+
+void Game::mousePressEvent(QMouseEvent *mouseEvent)
+{
+//    if (mouseEvent->windowPos().x() >= scene->sceneRect().left() && mouseEvent->windowPos().x() <= scene->sceneRect().right()
+//        && mouseEvent->windowPos().y() >= scene->sceneRect().bottom() && mouseEvent->windowPos().y() <= scene->sceneRect().top())
+//    {
+        if (scene->chosenPirate && scene->chosenTile
+            || scene->chosenPirate && scene->chosenShip
+            || scene->chosenShip && scene->chosenTile)
+        {
+            makeTurn();
+        }
+
+//    }
+}
+
+//начать ход (активирует нужные фишки и переворачивает поле)
+//сделать ход (передвижения)
+//завершить ход (поменять игрока, занулить выбранные клетки/фишки)
+
+
+
+
+
+
