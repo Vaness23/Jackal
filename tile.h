@@ -6,17 +6,10 @@
 #include <cstdlib>
 #include <gameobject.h>
 
-#define N  0
-#define NE 1
-#define E  2
-#define SE 3
-#define S  4
-#define SW 5
-#define W  6
-#define NW 7
 
-enum tileType {empty, arrow, horse, spinner, ice, trap, crocodile, cannibal, fortress,
-               aborigine, money, plane, balloon, gun, rum};
+enum direction {N, NE, E, SE, S, SW, W, NW};
+enum tileType {default_tile, empty, arrow, horse, spinner, ice, trap, crocodile, cannibal, fortress,
+               aborigine, money, plane, balloon, gun, rum, water};
 
 class Tile: public GameObject
 {
@@ -26,8 +19,10 @@ public:
     int wait; // количество ходов ожидания
     bool movement[8]; // направления следующего хода
     int coins; // монеты на клетке
-    virtual void play();
+    void discover();
+    virtual void play(Pirate* pirate);
     objectType getType();
+    virtual tileType getTileType();
 protected:
     bool discovered; // открыта ли клетка
 //    QString frontSidePath; // путь к изображению лицевой стороны клетки

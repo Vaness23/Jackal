@@ -4,5 +4,6 @@ class Arrow: public Tile
 {
 public:
     Arrow();
-    void play(Pirate pirate);
+    void play(Pirate *pirate);
+    tileType getTileType();
 };

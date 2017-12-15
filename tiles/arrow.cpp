@@ -42,8 +42,13 @@ Arrow::Arrow()
     }
 }
 
-void Arrow::play(Pirate pirate)
+void Arrow::play(Pirate *pirate)
 {
-    Tile::play();
-    pirate.movementPoints -= wait;
+    pirate->movementPoints -= wait;
+    discover();
+}
+
+tileType Arrow::getTileType()
+{
+    return arrow;
 }

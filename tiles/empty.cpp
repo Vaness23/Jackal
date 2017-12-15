@@ -23,8 +23,13 @@ Empty::Empty()
     }
 }
 
-void Empty::play(Pirate pirate)
+void Empty::play(Pirate *pirate)
 {
-    Tile::play();
-    pirate.movementPoints -= wait;
+    pirate->movementPoints -= wait;
+    discover();
+}
+
+tileType Empty::getTileType()
+{
+    return empty;
 }

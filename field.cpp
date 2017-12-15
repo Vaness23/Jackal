@@ -27,23 +27,85 @@ Index Field::getTileIndex(Tile *tile)
 
 bool Field::isPirateMoveOk(Tile *current, Tile *next)
 {
-    if ((abs(getTileIndex(next).x - getTileIndex(current).x) <= 1) && (abs(getTileIndex(next).y - getTileIndex(current).y) <= 1))
+    Index currentIndex, nextIndex = getTileIndex(next);
+
+    // С корабля на сушу
+    if (current->getType() == ship)
     {
-        return true;
+        current = static_cast<Tile*>(current->parentItem());
+        currentIndex = getTileIndex(current);
+        if (abs(nextIndex.x - currentIndex.x) == 1 && nextIndex.y == currentIndex.y
+                || abs(nextIndex.y - currentIndex.y) == 1 && nextIndex.x == currentIndex.x)
+            return true;
+        else
+            return false;
     }
 
+    currentIndex = getTileIndex(current);
+
+
+    // Движение с суши в воду
+    if (next->getTileType() == water)
+            /*nextIndex.x == 0 || nextIndex.x == 12 || nextIndex.y == 0 || nextIndex.y == 12*/
+    {
+        // если пирата перебрасывает со стрелки
+        if (current->getTileType() == arrow)
+            return checkDirection(current, nextIndex);
+        //пират не может сам залезть в воду
+        else
+            return false;
+    }
+
+    // Движение в воде
+    if (current->getTileType() == water && next->getTileType() == water)
+        /*currentIndex.x == 0 || currentIndex.x == 12 || currentIndex.y == 0 || currentIndex.y == 12*/
+    {
+        if (abs(nextIndex.x - currentIndex.x) == 1 /*&& nextIndex.y == currentIndex.y*/
+                || abs(nextIndex.y - currentIndex.y) == 1 /*&& nextIndex.x == currentIndex.x*/)
+            return true;
+    }
+    // ближние клетки суши
+    else if ((abs(nextIndex.x - currentIndex.x) <= 1) && (abs(nextIndex.y - currentIndex.y) <= 1))
+        return checkDirection(current, nextIndex);
     else
         return false;
 }
 
 bool Field::isShipMoveOk(Tile *current, Tile *next)
 {
+    Index currentIndex = getTileIndex(current);
+    Index nextIndex = getTileIndex(next);
 
+    //вертикально двигающиеся корабли
+    if (nextIndex.y >= 2 && nextIndex.y <= 10
+        && (
+            currentIndex.x == 0 && nextIndex.x == 0 && abs(nextIndex.y - currentIndex.y) == 1
+            || currentIndex.x == 12 && nextIndex.x == 12 && abs(nextIndex.y - currentIndex.y) == 1
+           )
+        )
+        return true;
+
+    //горизонтально двигающиеся корабли
+    if (nextIndex.x >= 2 && nextIndex.x <= 10
+             && (
+                currentIndex.y == 0 && nextIndex.y == 0 && abs(nextIndex.x - currentIndex.x) == 1
+                || currentIndex.y == 12 && nextIndex.y == 12 && abs(nextIndex.x - currentIndex.x) == 1
+                )
+        )
+            return true;
+    else
+        return false;
 }
 
 bool Field::isPirateToShipOk(Tile *pirateTile, Tile *shipTile)
 {
+    Index pirateIndex = getTileIndex(pirateTile);
+    Index shipIndex = getTileIndex(shipTile);
 
+    if (abs(pirateIndex.x - shipIndex.x) <= 1 && abs(pirateIndex.y - shipIndex.y) <= 1)
+        return checkDirection(pirateTile, shipIndex);
+    else
+        return false;
 }
 
 void Field::fill()
@@ -132,6 +194,46 @@ void Field::fill()
         map[row][0] = static_cast<Tile*>(new Water);
         map[row][12] = static_cast<Tile*>(new Water);
     }
+}
+
+bool Field::checkDirection(Tile *current, Index nextIndex)
+{
+    Index currentIndex = getTileIndex(current);
+    bool result = false;
+    // Смещение:
+    // север: х = 0, у = 1
+    if (current->movement[N] && nextIndex.x - currentIndex.x == 0 && nextIndex.y - currentIndex.y == -1)
+        return true;
+
+    // северо-восток: х = 1, у = 1
+    if (current->movement[NE] && nextIndex.x - currentIndex.x == 1 && nextIndex.y - currentIndex.y == -1)
+        return true;
+
+    // восток: х = 1, у = 0
+    if (current->movement[E] && nextIndex.x - currentIndex.x == 1 && nextIndex.y - currentIndex.y == 0)
+        return true;
+
+    // юго-восток: х = 1, у = -1
+    if (current->movement[SE] && nextIndex.x - currentIndex.x == 1 && nextIndex.y - currentIndex.y == 1)
+        return true;
+
+    // юг: х = 0, у = -1
+    if (current->movement[S] && nextIndex.x - currentIndex.x == 0 && nextIndex.y - currentIndex.y == 1)
+        return true;
+
+    // юго-запад: х = -1, у  = -1
+    if (current->movement[SW] && nextIndex.x - currentIndex.x == -1 && nextIndex.y - currentIndex.y == 1)
+        return true;
+
+    // запад: х = -1, у = 0
+    if (current->movement[W] && nextIndex.x - currentIndex.x == -1 && nextIndex.y - currentIndex.y == 0)
+        return true;
+
+    // северо-запад: х = -1, у = 1
+    if (current->movement[NW] && nextIndex.x - currentIndex.x == -1 && nextIndex.y - currentIndex.y == -1)
+        return true;
+
+    return false;
 }
 
 void Field::shuffleMap()

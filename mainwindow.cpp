@@ -18,6 +18,6 @@ void MainWindow::on_pushButton_clicked()
     Game *w = new Game;
     w->show();
     w->drawMap();
-    //w->beginTurn
+    w->beginTurn();
     hide();
 }

@@ -4,5 +4,6 @@ class Cannibal: public Tile
 {
 public:
     Cannibal();
-    void play(Pirate pirate);
+    void play(Pirate* pirate);
+    tileType getTileType();
 };

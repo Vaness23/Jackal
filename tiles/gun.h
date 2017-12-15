@@ -4,5 +4,6 @@ class Gun: public Tile
 {
 public:
     Gun();
-    void play(Pirate pirate);
+    void play(Pirate* pirate);
+    tileType getTileType();
 };

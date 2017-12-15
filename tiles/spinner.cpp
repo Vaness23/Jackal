@@ -36,10 +36,16 @@ Spinner::Spinner()
             wait = 5;
             break;
     }
+
 }
 
-void Spinner::play(Pirate pirate)
+void Spinner::play(Pirate *pirate)
 {
-    Tile::play();
-    pirate.movementPoints -= wait;
+    pirate->movementPoints -= wait;
+    discover();
+}
+
+tileType Spinner::getTileType()
+{
+    return spinner;
 }

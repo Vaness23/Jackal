@@ -7,8 +7,13 @@ Horse::Horse()
     wait = 0;
 }
 
-void Horse::play(Pirate pirate)
+void Horse::play(Pirate *pirate)
 {
-    Tile::play();
-    pirate.movementPoints -= wait;
+    pirate->movementPoints -= wait;
+    discover();
+}
+
+tileType Horse::getTileType()
+{
+    return horse;
 }

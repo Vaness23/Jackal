@@ -4,5 +4,6 @@ class Rum: public Tile
 {
 public:
     Rum();
-    void play(Pirate pirate);
+    void play(Pirate* pirate);
+    tileType getTileType();
 };

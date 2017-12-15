@@ -4,5 +4,6 @@ class Spinner: public Tile
 {
 public:
     Spinner();
-    void play(Pirate pirate);
+    void play(Pirate* pirate);
+    tileType getTileType();
 };

@@ -36,6 +36,6 @@ public:
 
 private:
     void fill(); // заполнить поле клетками
-//    void shuffleArray(Tile *array[], int length); // перемешать массив
+    bool checkDirection(Tile* current, Index nextIndex);
     Tile* map[13][13]; // поле
 };

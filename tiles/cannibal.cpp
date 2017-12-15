@@ -7,9 +7,14 @@ Cannibal::Cannibal()
     wait = 1;
 }
 
-void Cannibal::play(Pirate pirate)
+void Cannibal::play(Pirate *pirate)
 {
-    Tile::play();
-    pirate.movementPoints -= wait;
-    pirate.die();
+    pirate->movementPoints -= wait;
+    pirate->die();
+    discover();
+}
+
+tileType Cannibal::getTileType()
+{
+    return cannibal;
 }

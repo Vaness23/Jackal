@@ -7,8 +7,13 @@ Crocodile::Crocodile()
     wait = 0;
 }
 
-void Crocodile::play(Pirate pirate)
+void Crocodile::play(Pirate *pirate)
 {
-    Tile::play();
-    pirate.movementPoints -= wait;
+    pirate->movementPoints -= wait;
+    discover();
+}
+
+tileType Crocodile::getTileType()
+{
+    return crocodile;
 }

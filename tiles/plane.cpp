@@ -7,8 +7,13 @@ Plane::Plane()
     wait = 0;
 }
 
-void Plane::play(Pirate pirate)
+void Plane::play(Pirate *pirate)
 {
-    Tile::play();
-    pirate.movementPoints -= wait;
+    pirate->movementPoints -= wait;
+    discover();
+}
+
+tileType Plane::getTileType()
+{
+    return plane;
 }

@@ -27,7 +27,10 @@ void GameScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
                 chosenShip = static_cast<Ship*>(object);
                 break;
             case pirate:
-                chosenPirate = static_cast<Pirate*>(object);
+                if (chosenPirate)
+                    chosenTile = static_cast<Tile*>(object->parentItem());
+                else
+                    chosenPirate = static_cast<Pirate*>(object);
                 break;
             case tile:
                 chosenTile = static_cast<Tile*>(object);

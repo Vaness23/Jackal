@@ -8,8 +8,13 @@ Water::Water()
     discovered = true;
 }
 
-void Water::play(Pirate pirate)
+void Water::play(Pirate *pirate)
 {
-    Tile::play();
-    pirate.movementPoints -= wait;
+    pirate->movementPoints -= wait;
+    discover();
+}
+
+tileType Water::getTileType()
+{
+    return water;
 }

@@ -37,11 +37,13 @@ bool Pirate::isAlive()
 void Pirate::die()
 {
     alive = false;
+    setVisible(false);
 }
 
 void Pirate::resurrect()
 {
     alive = true;
+    setVisible(true);
 }
 
 objectType Pirate::getType()

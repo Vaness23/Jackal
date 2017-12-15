@@ -7,8 +7,13 @@ Gun::Gun()
     wait = 0;
 }
 
-void Gun::play(Pirate pirate)
+void Gun::play(Pirate *pirate)
 {
-    Tile::play();
-    pirate.movementPoints -= wait;
+    pirate->movementPoints -= wait;
+    discover();
+}
+
+tileType Gun::getTileType()
+{
+    return gun;
 }

@@ -70,8 +70,13 @@ Money::Money(int coins)
     }
 }
 
-void Money::play(Pirate pirate)
+void Money::play(Pirate *pirate)
 {
-    Tile::play();
-    pirate.movementPoints -= wait;
+    pirate->movementPoints -= wait;
+    discover();
+}
+
+tileType Money::getTileType()
+{
+    return money;
 }

@@ -7,8 +7,13 @@ Trap::Trap()
     wait = 3;
 }
 
-void Trap::play(Pirate pirate)
+void Trap::play(Pirate *pirate)
 {
-    Tile::play();
-    pirate.movementPoints -= wait;
+    pirate->movementPoints -= wait;
+    discover();
+}
+
+tileType Trap::getTileType()
+{
+    return trap;
 }

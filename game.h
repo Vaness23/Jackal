@@ -37,6 +37,7 @@ private:
     bool checkTile(Pirate* chosenPirate, Tile* chosenTile);
     bool checkTile(Ship* chosenShip, Tile* chosenTile);
     bool checkShip(Pirate* chosenPirate, Ship* chosenShip);
+    QString movement1, movement2, movement3, movement4; // вывод ОП игроков на экран
 protected:
     void paintEvent (QPaintEvent *event);
     void mousePressEvent(QMouseEvent *mouseEvent);

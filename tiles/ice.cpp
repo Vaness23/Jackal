@@ -7,8 +7,13 @@ Ice::Ice()
     wait = 0;
 }
 
-void Ice::play(Pirate pirate)
+void Ice::play(Pirate* pirate)
 {
-    Tile::play();
-    pirate.movementPoints -= wait;
+    pirate->movementPoints -= wait;
+    discover();
+}
+
+tileType Ice::getTileType()
+{
+    return ice;
 }

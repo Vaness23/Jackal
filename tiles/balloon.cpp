@@ -7,8 +7,13 @@ Balloon::Balloon()
     wait = 0;
 }
 
-void Balloon::play(Pirate pirate)
+void Balloon::play(Pirate *pirate)
 {
-    Tile::play();
-    pirate.movementPoints -= wait;
+    discover();
+    pirate->movementPoints -= wait;
+}
+
+tileType Balloon::getTileType()
+{
+    return balloon;
 }

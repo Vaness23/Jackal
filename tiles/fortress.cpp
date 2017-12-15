@@ -7,8 +7,13 @@ Fortress::Fortress()
     wait = 1;
 }
 
-void Fortress::play(Pirate pirate)
+void Fortress::play(Pirate *pirate)
 {
-    Tile::play();
-    pirate.movementPoints -= wait;
+    pirate->movementPoints -= wait;
+    discover();
+}
+
+tileType Fortress::getTileType()
+{
+    return fortress;
 }

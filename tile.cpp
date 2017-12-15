@@ -13,7 +13,7 @@ Tile::Tile()
     //frontSidePath = "/Users/Ivan/Documents/CPP/Jackal/img/tile.png";
 }
 
-void Tile::play()
+void Tile::discover()
 {
     if (!discovered)
     {
@@ -22,7 +22,17 @@ void Tile::play()
     }
 }
 
+void Tile::play(Pirate *pirate)
+{
+
+}
+
 objectType Tile::getType()
 {
     return tile;
+}
+
+tileType Tile::getTileType()
+{
+    return default_tile;
 }

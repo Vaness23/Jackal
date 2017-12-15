@@ -7,8 +7,13 @@ Rum::Rum()
     wait = 2;
 }
 
-void Rum::play(Pirate pirate)
+void Rum::play(Pirate *pirate)
 {
-    Tile::play();
-    pirate.movementPoints -= wait;
+    pirate->movementPoints -= wait;
+    discover();
+}
+
+tileType Rum::getTileType()
+{
+    return rum;
 }
