@@ -1,4 +1,6 @@
 #include <tile.h>
+#include <coin.h>
+#include <QGraphicsScene>
 
 class Money: public Tile
 {

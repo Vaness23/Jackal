@@ -7,6 +7,7 @@
 #include <QMouseEvent>
 #include <QPoint>
 #include <gamescene.h>
+#include <player.h>
 #include <field.h>
 
 namespace Ui {
@@ -32,6 +33,7 @@ private:
     Player* players[4]; // список игроков
     int activePlayerNum; // номер активного игрока
     void arrangeShips(); // расставить корабли и пиратов
+    void arrangeCoins(); // разложить монеты
     void makeTurn(); // сделать ход (передвижение)
     void endTurn(); // завершить ход
     bool checkTile(Pirate* chosenPirate, Tile* chosenTile);
@@ -43,6 +45,8 @@ protected:
     void mousePressEvent(QMouseEvent *mouseEvent);
 private slots:
     void on_shuffleBtn_clicked();
+    void on_pickUpCoinButton_clicked();
+    void on_dropCoinButton_clicked();
 };
 
 #endif // GAME_H

@@ -2,6 +2,7 @@
 #include <pirate.h>
 #include <ship.h>
 #include <tile.h>
+#include <coin.h>
 #include <QGraphicsSceneMouseEvent>
 #include <QPoint>
 

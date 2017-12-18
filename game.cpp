@@ -31,7 +31,7 @@ void Game::drawMap()
     for (int i = 0; i < 13; i++, x = 0, y += 50)
     {
         for(int j = 0; j < 13; j++)
-        {       
+        {
             tile = field->getTileAt(i,j);
             tile->setPos(x,y);
             scene->addItem(tile);
@@ -83,6 +83,18 @@ void Game::arrangeShips()
     players[3]->ship.setParentItem(field->getTileAt(6, 0));
 }
 
+void Game::arrangeCoins()
+{
+    Coin* coin;
+    for (int i = 0; i < scene->chosenTile->coins; i++)
+    {
+        coin = new Coin;
+        // Добавление монеты в ту же сцену
+        scene->addItem(coin);
+        coin->setParentItem(scene->chosenTile);
+    }
+}
+
 void Game::makeTurn()
 {
     // если выбраны пират и клетка
@@ -97,11 +109,13 @@ void Game::makeTurn()
     {
         if (scene->chosenPirate->movementPoints <= 0)
         {
-            // пират пропускает ходы на Вертушке
+            // пират пропускает ходы
         }
         else
         {
             scene->chosenPirate->moveTo(scene->chosenTile);
+            if (scene->chosenTile->getTileType() == money && !scene->chosenTile->isDiscovered())
+                arrangeCoins();
             scene->chosenTile->play(scene->chosenPirate);
             ui->graphicsView->update();
         }
@@ -178,7 +192,7 @@ bool Game::checkTile(Pirate *chosenPirate, Tile *chosenTile)
                 return true;
             }
             else if (chosenPirate->movementPoints == 1)
-                return true;
+                return field->isPirateMoveOk(currentTile, chosenTile);
             else return false; // уходит с клетки раньше времени
         }
     }
@@ -234,3 +248,40 @@ void Game::mousePressEvent(QMouseEvent *mouseEvent)
 //сделать ход (передвижения)
 //завершить ход (поменять игрока, занулить выбранные клетки/фишки)
 
+
+void Game::on_pickUpCoinButton_clicked()
+{
+    if (scene->chosenPirate)
+    {
+        Tile* pirateTile = static_cast<Tile*>(scene->chosenPirate->parentItem());
+        GameObject *item;
+        Coin* myCoin;
+
+        // если на клетке есть монеты, у пирата монет нет
+        if (pirateTile->coins > 0 && !scene->chosenPirate->carriesCoin())
+        {
+            //`Поиск монетки среди объектов на клетке
+            QList<QGraphicsItem*> objectsOnTile;
+            objectsOnTile = pirateTile->childItems();
+            for (auto obj = objectsOnTile.begin(); obj < objectsOnTile.end(); obj++)
+            {
+                item = static_cast<GameObject*>(*obj);
+                if (item && item->getType() == coin)
+                    myCoin = static_cast<Coin*>(item);
+            }
+            scene->chosenPirate->pickUpCoin(myCoin);
+        }
+    }
+
+    ui->graphicsView->update();
+
+}
+
+void Game::on_dropCoinButton_clicked()
+{
+    if (scene->chosenPirate && scene->chosenPirate->carriesCoin())
+    {
+        scene->chosenPirate->dropCoin();
+        ui->graphicsView->update();
+    }
+}

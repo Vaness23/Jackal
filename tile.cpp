@@ -36,3 +36,8 @@ tileType Tile::getTileType()
 {
     return default_tile;
 }
+
+bool Tile::isDiscovered()
+{
+    return discovered;
+}

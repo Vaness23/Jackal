@@ -32,7 +32,7 @@ public:
     bool isPirateMoveOk(Tile* current, Tile* next);
     bool isShipMoveOk(Tile* current, Tile* next);
     bool isPirateToShipOk(Tile* pirateTile, Tile* shipTile);
-    void shuffleMap(); // перемешать клетки БУДЕТ ПРИВАТНОЙ КАК ТАНЕЦ МУСУЛЬМАНКИ
+    void shuffleMap(); // перемешать клетки
 
 private:
     void fill(); // заполнить поле клетками

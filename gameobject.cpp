@@ -2,5 +2,5 @@
 
 GameObject::GameObject()
 {
-
+    coins = 0;
 }

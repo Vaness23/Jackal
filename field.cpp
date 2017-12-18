@@ -64,6 +64,9 @@ bool Field::isPirateMoveOk(Tile *current, Tile *next)
                 || abs(nextIndex.y - currentIndex.y) == 1 /*&& nextIndex.x == currentIndex.x*/)
             return true;
     }
+    // из воды на сушу
+    else if (current->getTileType() == water && next->getTileType() != water)
+        return false;
     // ближние клетки суши
     else if ((abs(nextIndex.x - currentIndex.x) <= 1) && (abs(nextIndex.y - currentIndex.y) <= 1))
         return checkDirection(current, nextIndex);

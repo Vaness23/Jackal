@@ -48,7 +48,8 @@ SOURCES += main.cpp\
     tiles/water.cpp \
     tiles/rum.cpp \
     ../Jackal/gameobject.cpp \
-    ../Jackal/gamescene.cpp
+    ../Jackal/gamescene.cpp \
+    ../Jackal/coin.cpp
 
 HEADERS  += mainwindow.h \
     field.h \
@@ -74,7 +75,8 @@ HEADERS  += mainwindow.h \
     tiles/water.h \
     tiles/rum.h \
     ../Jackal/gameobject.h \
-    ../Jackal/gamescene.h
+    ../Jackal/gamescene.h \
+    ../Jackal/coin.h
 
 FORMS    += mainwindow.ui \
     game.ui

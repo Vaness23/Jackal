@@ -23,26 +23,13 @@
     </rect>
    </property>
   </widget>
-  <widget class="QLabel" name="skipLbl">
-   <property name="geometry">
-    <rect>
-     <x>700</x>
-     <y>230</y>
-     <width>179</width>
-     <height>23</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string/>
-   </property>
-  </widget>
   <widget class="QWidget" name="">
    <property name="geometry">
     <rect>
      <x>690</x>
      <y>10</y>
      <width>157</width>
-     <height>215</height>
+     <height>228</height>
     </rect>
    </property>
    <layout class="QVBoxLayout" name="verticalLayout">
@@ -119,6 +106,20 @@
        </widget>
       </item>
      </layout>
+    </item>
+    <item>
+     <widget class="QPushButton" name="pickUpCoinButton">
+      <property name="text">
+       <string>Взять монету</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="dropCoinButton">
+      <property name="text">
+       <string>Бросить монету</string>
+      </property>
+     </widget>
     </item>
    </layout>
   </widget>

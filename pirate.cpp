@@ -3,30 +3,49 @@
 Pirate::Pirate()
 {
     alive = true;
-    coin = false;
     movementPoints = 1;
+    myCoin = NULL;
 
     setPixmap(QPixmap("/Users/Ivan/Documents/CPP/Jackal/img/pirate.png"));
 }
 
-void Pirate::moveTo(QGraphicsItem *nextTile)
+void Pirate::moveTo(GameObject *nextTile)
 {
     setParentItem(nextTile);
+
+    if (myCoin)
+    {
+        myCoin->setParentItem(nextTile);
+    }
+
 }
 
-void Pirate::pickUpCoin()
+void Pirate::pickUpCoin(Coin *collectedCoin)
 {
+    GameObject* parentTile = static_cast<GameObject*>(this->parentItem());
 
+    collectedCoin->setParentItem(this);
+    collectedCoin->moveBy(25, 25);
+    myCoin = collectedCoin;
+    parentTile->coins--;
 }
 
 void Pirate::dropCoin()
 {
+    GameObject* parentTile = static_cast<GameObject*>(this->parentItem());
 
+    myCoin->moveBy(-25, -25);
+    myCoin->setParentItem(parentTile);
+    parentTile->coins++;
+    myCoin = NULL;
 }
 
 bool Pirate::carriesCoin()
 {
-    return coin;
+    if (myCoin)
+        return true;
+    else
+        return false;
 }
 
 bool Pirate::isAlive()

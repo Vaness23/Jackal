@@ -1,13 +1,15 @@
 #ifndef PIRATE_H
 #define PIRATE_H
+
 #include <gameobject.h>
+#include <coin.h>
 
 class Pirate: public GameObject
 {
 public:
     Pirate();
-    void moveTo(QGraphicsItem *nextTile); // сделать ход
-    void pickUpCoin(); // поднять монеты
+    void moveTo(GameObject *nextTile); // сделать ход
+    void pickUpCoin(Coin* collectedCoin); // поднять монеты
     void dropCoin(); // бросить монету
     bool carriesCoin(); //getter
     bool isAlive(); // getter
@@ -17,6 +19,6 @@ public:
     int movementPoints;
 private:
     bool alive;
-    bool coin;
+    Coin* myCoin;
 };
 #endif
