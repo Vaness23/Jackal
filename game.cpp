@@ -7,7 +7,7 @@ Game::Game(QWidget *parent) :
     ui(new Ui::Game)
 {
     ui->setupUi(this);
-    field = new Field;
+    field = new Field<Tile*>;
     scene = new GameScene(this);
     ui->graphicsView->setScene(scene);
 
@@ -217,7 +217,7 @@ bool Game::checkTile(Pirate *chosenPirate, Tile *chosenTile)
 //    if (currentTile->getType() == ship)
 //        currentTile = static_cast<Tile*>(currentTile->parentItem());
 
-    // если пират находится на обычной клетке
+    // если пират находится вне корабля
     if (currentTile->getType() != ship)
     {
         // пират стоит на клетке с задержкой передвижения

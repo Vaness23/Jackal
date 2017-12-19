@@ -34,7 +34,7 @@ private:
     GameScene *scene;
     QGraphicsItem *tile;
 
-    Field* field;
+    Field<Tile*>* field;
     Player* players[4]; // список игроков
     int activePlayerNum; // номер активного игрока
     void arrangeShips(); // расставить корабли и пиратов

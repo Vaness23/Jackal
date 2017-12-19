@@ -3,13 +3,16 @@
 #include <random>
 #include <cmath>
 
-Field::Field(){
+template <class T>
+Field<T>::Field()
+{
     fill(); // заполнение поля клетками
     shuffleMap();
     coins = 37;
 }
 
-Index Field::getTileIndex(Tile *tile)
+template <class T>
+Index Field<T>::getTileIndex(T tile)
 {
     Index coordinates;
     coordinates.x = -1;
@@ -26,14 +29,15 @@ Index Field::getTileIndex(Tile *tile)
     return coordinates;
 }
 
-bool Field::isPirateMoveOk(Tile *current, Tile *next)
+template <class T>
+bool Field<T>::isPirateMoveOk(T current, T next)
 {
     Index currentIndex, nextIndex = getTileIndex(next);
 
-    // С корабля на сушу
+    // -------------------С корабля на сушу------------------
     if (current->getType() == ship)
     {
-        current = static_cast<Tile*>(current->parentItem());
+        current = static_cast<T>(current->parentItem());
         currentIndex = getTileIndex(current);
         if (abs(nextIndex.x - currentIndex.x) == 1
                 && nextIndex.y == currentIndex.y
@@ -47,7 +51,7 @@ bool Field::isPirateMoveOk(Tile *current, Tile *next)
     currentIndex = getTileIndex(current);
 
 
-    // Движение с суши в воду
+    // -----------------Движение с суши в воду-----------------
     if (next->getTileType() == water)
     {
         // если пирата перебрасывает со стрелки
@@ -58,17 +62,19 @@ bool Field::isPirateMoveOk(Tile *current, Tile *next)
             return false;
     }
 
-    // Движение в воде
+    // --------------------Движение в воде-----------------------
     if (current->getTileType() == water && next->getTileType() == water)
     {
         if (abs(nextIndex.x - currentIndex.x) == 1 /*&& nextIndex.y == currentIndex.y*/
                 || abs(nextIndex.y - currentIndex.y) == 1 /*&& nextIndex.x == currentIndex.x*/)
             return true;
     }
-    // из воды на сушу
+
+    // -----------------Движение из воды на сушу------------------
     else if (current->getTileType() == water && next->getTileType() != water)
         return false;
-    // ближние клетки суши
+
+    // ------------------Движение по суше-------------------------
     else if ((abs(nextIndex.x - currentIndex.x) <= 1)
              && (abs(nextIndex.y - currentIndex.y) <= 1))
         return checkDirection(current, nextIndex);
@@ -76,7 +82,8 @@ bool Field::isPirateMoveOk(Tile *current, Tile *next)
         return false;
 }
 
-bool Field::isShipMoveOk(Tile *current, Tile *next)
+template <class T>
+bool Field<T>::isShipMoveOk(T current, T next)
 {
     Index currentIndex = getTileIndex(current);
     Index nextIndex = getTileIndex(next);
@@ -106,7 +113,8 @@ bool Field::isShipMoveOk(Tile *current, Tile *next)
         return false;
 }
 
-bool Field::isPirateToShipOk(Tile *pirateTile, Tile *shipTile)
+template <class T>
+bool Field<T>::isPirateToShipOk(T pirateTile, T shipTile)
 {
     Index pirateIndex = getTileIndex(pirateTile);
     Index shipIndex = getTileIndex(shipTile);
@@ -118,107 +126,109 @@ bool Field::isPirateToShipOk(Tile *pirateTile, Tile *shipTile)
         return false;
 }
 
-void Field::fill()
+template <class T>
+void Field<T>::fill()
 {
     int col, row;
 
     for (col = 0; col <= 12; col++) // 1-я строка поля - 11 воды
-        map[0][col] = static_cast<Tile*>(new Water);
+        map[0][col] = static_cast<T>(new Water);
 
     for (col = 0; col <= 1; col++) // 2-я строка поля - 2 воды
-        map[1][col] = static_cast<Tile*>(new Water);
+        map[1][col] = static_cast<T>(new Water);
 
     for (col = 2; col <= 10; col++) // 2-я строка поля - 9 пустышек
-        map[1][col] = static_cast<Tile*>(new Empty);
+        map[1][col] = static_cast<T>(new Empty);
 
     for (col = 11; col <= 12; col++) // 2-я строка поля - 2 воды
-        map[1][col] = static_cast<Tile*>(new Water);
+        map[1][col] = static_cast<T>(new Water);
 
     for (col = 1; col <= 11; col++) // 3-я строка поля - 11 пустышек
-        map[2][col] = static_cast<Tile*>(new Empty);
+        map[2][col] = static_cast<T>(new Empty);
 
     for (col = 1; col <= 11; col++) // 4-я строка поля - 11 пустышек
-        map[3][col] = static_cast<Tile*>(new Empty);
+        map[3][col] = static_cast<T>(new Empty);
 
     for (col = 1; col <= 9; col++) // 5-я строка поля - 9 пустышек
-        map[4][col] = static_cast<Tile*>(new Empty);
+        map[4][col] = static_cast<T>(new Empty);
 
     for (col = 10; col <= 11; col++) // 5-я строка поля - 2 коня
-        map[4][col] = static_cast<Tile*>(new Horse);
+        map[4][col] = static_cast<T>(new Horse);
 
     for (col = 1; col <= 11; col++) // 6-я строка поля - 11 стрелок
-        map[5][col] = static_cast<Tile*>(new Arrow);
+        map[5][col] = static_cast<T>(new Arrow);
 
     for (col = 1; col <= 10; col++) // 7-я строка поля - 10 стрелок
-        map[6][col] = static_cast<Tile*>(new Arrow);
+        map[6][col] = static_cast<T>(new Arrow);
 
-    map[6][11] = static_cast<Tile*>(new Spinner); // 7-я строка поля - 1 вертушка
+    map[6][11] = static_cast<T>(new Spinner); // 7-я строка поля - 1 вертушка
 
     for (col = 1; col <= 11; col++) // 8-я строка поля - 11 вертушек
-        map[7][col] = static_cast<Tile*>(new Spinner);
+        map[7][col] = static_cast<T>(new Spinner);
 
     for (col = 1; col <= 6; col++) // 9-я строка поля - 6 льдин
-        map[8][col] = static_cast<Tile*>(new Ice);
+        map[8][col] = static_cast<T>(new Ice);
 
     for (col = 7; col <= 9; col++) // 9-я строка поля - 3 ловушки
-        map[8][col] = static_cast<Tile*>(new Trap);
+        map[8][col] = static_cast<T>(new Trap);
 
     for (col = 10; col <= 11; col++) // 9-я строка поля - 2 пушки
-        map[8][col] = static_cast<Tile*>(new Gun);
+        map[8][col] = static_cast<T>(new Gun);
 
     for (col = 1; col <= 2; col++) // 10-я строка поля - 2 крепости
-        map[9][col] = static_cast<Tile*>(new Fortress);
+        map[9][col] = static_cast<T>(new Fortress);
 
-    map[9][3] = static_cast<Tile*>(new Aborigine); // 10-я строка поля - 1 аборигенка
+    map[9][3] = static_cast<T>(new Aborigine); // 10-я строка поля - 1 аборигенка
 
     for (col = 4; col <= 7; col++) // 10-я строка поля - 4 рома
-        map[9][col] = static_cast<Tile*>(new Rum);
+        map[9][col] = static_cast<T>(new Rum);
 
     for (col = 8; col <= 11; col++) // 10-я строка поля - 4 крокодила
-        map[9][col] = static_cast<Tile*>(new Crocodile);
+        map[9][col] = static_cast<T>(new Crocodile);
 
-    map[10][1] = static_cast<Tile*>(new Cannibal); // 11-я строка поля - 1 людоед
+    map[10][1] = static_cast<T>(new Cannibal); // 11-я строка поля - 1 людоед
 
     for (col = 2; col <= 3; col++) // 11-я строка поля - 2 воздушных шара
-        map[10][col] = static_cast<Tile*>(new Balloon);
+        map[10][col] = static_cast<T>(new Balloon);
 
-    map[10][4] = static_cast<Tile*>(new Plane); // 11-я строка поля - 1 самолет
+    map[10][4] = static_cast<T>(new Plane); // 11-я строка поля - 1 самолет
 
     for (col = 5; col <= 9; col++) // 11-я строка поля - 5 сундуков по 1
-        map[10][col] = static_cast<Tile*>(new Money(1));
+        map[10][col] = static_cast<T>(new Money(1));
 
     for (col = 10; col <= 11; col++) // 11-я строка поля - 2 сундука по 2
-        map[10][col] = static_cast<Tile*>(new Money(2));
+        map[10][col] = static_cast<T>(new Money(2));
 
     for (col = 0; col <= 1; col++) // 12-я строка поля - 2 воды
-        map[11][col] = static_cast<Tile*>(new Water);
+        map[11][col] = static_cast<T>(new Water);
 
     for (col = 2; col <= 4; col++) // 12-я строка поля - 3 сундука по 2
-        map[11][col] = static_cast<Tile*>(new Money(2));
+        map[11][col] = static_cast<T>(new Money(2));
 
     for (col = 5; col <= 7; col++) // 12-я строка поля - 3 сундука по 3
-        map[11][col] = static_cast<Tile*>(new Money(3));
+        map[11][col] = static_cast<T>(new Money(3));
 
     for (col = 8; col <= 9; col++) // 12-я строка поля - 2 сундука по 4
-        map[11][col] = static_cast<Tile*>(new Money(4));
+        map[11][col] = static_cast<T>(new Money(4));
 
-    map[11][10] = static_cast<Tile*>(new Money(5));// 12-я строка поля - 1 сундук с 5
+    map[11][10] = static_cast<T>(new Money(5));// 12-я строка поля - 1 сундук с 5
 
     for (col = 11; col <= 12; col++) // 12-я строка поля - 2 воды
-        map[11][col] = static_cast<Tile*>(new Water);
+        map[11][col] = static_cast<T>(new Water);
 
     for (col = 0; col <= 12; col++) // 13-я строка поля - 11 воды
-        map[12][col] = static_cast<Tile*>(new Water);
+        map[12][col] = static_cast<T>(new Water);
 
     // 1-й и 13-й столбцы поля - 9 воды в каждом столбце
     for (row = 2; row <= 10; row++)
     {
-        map[row][0] = static_cast<Tile*>(new Water);
-        map[row][12] = static_cast<Tile*>(new Water);
+        map[row][0] = static_cast<T>(new Water);
+        map[row][12] = static_cast<T>(new Water);
     }
 }
 
-bool Field::checkDirection(Tile *current, Index nextIndex)
+template <class T>
+bool Field<T>::checkDirection(T current, Index nextIndex)
 {
     Index currentIndex = getTileIndex(current);
     bool result = false;
@@ -266,9 +276,10 @@ bool Field::checkDirection(Tile *current, Index nextIndex)
     return false;
 }
 
-void Field::shuffleMap()
+template <class T>
+void Field<T>::shuffleMap()
 {
-    Tile *smallArray[9], *largeArray[11];
+    T smallArray[9], largeArray[11];
     int row;
 
     // Сортировка 1-го столбца суши
@@ -330,4 +341,4 @@ void Field::shuffleMap()
     std::shuffle(&map[11][2], &map[11][11], std::default_random_engine(seed));
 }
 
-
+template class Field<Tile*>;

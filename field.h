@@ -21,21 +21,22 @@ struct Index
     int x, y;
 };
 
+template <class T>
 class Field
 {
 public:
     Field();
     void show(); // показать все клетки
     void hide(); // спрятать все клетки
-    Tile* getTileAt(int x, int y) {return map[x][y];}
-    Index getTileIndex(Tile* tile);
-    bool isPirateMoveOk(Tile* current, Tile* next);
-    bool isShipMoveOk(Tile* current, Tile* next);
-    bool isPirateToShipOk(Tile* pirateTile, Tile* shipTile);
+    T getTileAt(int x, int y) {return map[x][y];}
+    Index getTileIndex(T tile);
+    bool isPirateMoveOk(T current, T next);
+    bool isShipMoveOk(T current, T next);
+    bool isPirateToShipOk(T pirateTile, T shipTile);
     void shuffleMap(); // перемешать клетки
     int coins;
 private:
     void fill(); // заполнить поле клетками
-    bool checkDirection(Tile* current, Index nextIndex);
-    Tile* map[13][13]; // поле
+    bool checkDirection(T current, Index nextIndex);
+    T map[13][13]; // поле
 };
