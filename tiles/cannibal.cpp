@@ -2,7 +2,7 @@
 
 Cannibal::Cannibal()
 {
-    frontSide = QPixmap("/Users/Ivan/Documents/CPP/Jackal/img/cannibal.png").scaledToHeight(50);
+    frontSide = QPixmap(":/cannibal.png").scaledToHeight(50);
 
     wait = 1;
 }

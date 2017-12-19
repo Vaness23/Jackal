@@ -2,7 +2,7 @@
 
 Rum::Rum()
 {
-    frontSide = QPixmap("/Users/Ivan/Documents/CPP/Jackal/img/rum.png").scaledToHeight(50);
+    frontSide = QPixmap(":/rum.png").scaledToHeight(50);
 
     wait = 2;
 }

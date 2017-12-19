@@ -10,7 +10,7 @@ public:
     Pirate();
     void moveTo(GameObject *nextTile); // сделать ход
     void pickUpCoin(Coin* collectedCoin); // поднять монеты
-    void dropCoin(); // бросить монету
+    Coin* dropCoin(); // бросить монету
     bool carriesCoin(); //getter
     bool isAlive(); // getter
     void die(); // убить пирата

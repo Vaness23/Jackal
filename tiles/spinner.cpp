@@ -20,19 +20,19 @@ Spinner::Spinner()
     switch (spinner[numPic])
     {
         case 0:
-            frontSide = QPixmap("/Users/Ivan/Documents/CPP/Jackal/img/spinner0.png").scaledToHeight(50);
+            frontSide = QPixmap(":/spinner0.png").scaledToHeight(50);
             wait = 2;
             break;
         case 1:
-            frontSide = QPixmap("/Users/Ivan/Documents/CPP/Jackal/img/spinner1.png").scaledToHeight(50);
+            frontSide = QPixmap(":/spinner1.png").scaledToHeight(50);
             wait = 3;
             break;
         case 2:
-            frontSide = QPixmap("/Users/Ivan/Documents/CPP/Jackal/img/spinner2.png").scaledToHeight(50);
+            frontSide = QPixmap(":/spinner2.png").scaledToHeight(50);
             wait = 4;
             break;
         case 3:
-            frontSide = QPixmap("/Users/Ivan/Documents/CPP/Jackal/img/spinner3.png").scaledToHeight(50);
+            frontSide = QPixmap(":/spinner3.png").scaledToHeight(50);
             wait = 5;
             break;
     }

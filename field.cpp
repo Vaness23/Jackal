@@ -6,6 +6,7 @@
 Field::Field(){
     fill(); // заполнение поля клетками
     shuffleMap();
+    coins = 37;
 }
 
 Index Field::getTileIndex(Tile *tile)
@@ -34,8 +35,10 @@ bool Field::isPirateMoveOk(Tile *current, Tile *next)
     {
         current = static_cast<Tile*>(current->parentItem());
         currentIndex = getTileIndex(current);
-        if (abs(nextIndex.x - currentIndex.x) == 1 && nextIndex.y == currentIndex.y
-                || abs(nextIndex.y - currentIndex.y) == 1 && nextIndex.x == currentIndex.x)
+        if (abs(nextIndex.x - currentIndex.x) == 1
+                && nextIndex.y == currentIndex.y
+            || abs(nextIndex.y - currentIndex.y) == 1
+                && nextIndex.x == currentIndex.x)
             return true;
         else
             return false;
@@ -46,7 +49,6 @@ bool Field::isPirateMoveOk(Tile *current, Tile *next)
 
     // Движение с суши в воду
     if (next->getTileType() == water)
-            /*nextIndex.x == 0 || nextIndex.x == 12 || nextIndex.y == 0 || nextIndex.y == 12*/
     {
         // если пирата перебрасывает со стрелки
         if (current->getTileType() == arrow)
@@ -58,7 +60,6 @@ bool Field::isPirateMoveOk(Tile *current, Tile *next)
 
     // Движение в воде
     if (current->getTileType() == water && next->getTileType() == water)
-        /*currentIndex.x == 0 || currentIndex.x == 12 || currentIndex.y == 0 || currentIndex.y == 12*/
     {
         if (abs(nextIndex.x - currentIndex.x) == 1 /*&& nextIndex.y == currentIndex.y*/
                 || abs(nextIndex.y - currentIndex.y) == 1 /*&& nextIndex.x == currentIndex.x*/)
@@ -68,7 +69,8 @@ bool Field::isPirateMoveOk(Tile *current, Tile *next)
     else if (current->getTileType() == water && next->getTileType() != water)
         return false;
     // ближние клетки суши
-    else if ((abs(nextIndex.x - currentIndex.x) <= 1) && (abs(nextIndex.y - currentIndex.y) <= 1))
+    else if ((abs(nextIndex.x - currentIndex.x) <= 1)
+             && (abs(nextIndex.y - currentIndex.y) <= 1))
         return checkDirection(current, nextIndex);
     else
         return false;
@@ -82,8 +84,10 @@ bool Field::isShipMoveOk(Tile *current, Tile *next)
     //вертикально двигающиеся корабли
     if (nextIndex.y >= 2 && nextIndex.y <= 10
         && (
-            currentIndex.x == 0 && nextIndex.x == 0 && abs(nextIndex.y - currentIndex.y) == 1
-            || currentIndex.x == 12 && nextIndex.x == 12 && abs(nextIndex.y - currentIndex.y) == 1
+            currentIndex.x == 0 && nextIndex.x == 0
+                && abs(nextIndex.y - currentIndex.y) == 1
+            || currentIndex.x == 12 && nextIndex.x == 12
+                && abs(nextIndex.y - currentIndex.y) == 1
            )
         )
         return true;
@@ -91,8 +95,10 @@ bool Field::isShipMoveOk(Tile *current, Tile *next)
     //горизонтально двигающиеся корабли
     if (nextIndex.x >= 2 && nextIndex.x <= 10
              && (
-                currentIndex.y == 0 && nextIndex.y == 0 && abs(nextIndex.x - currentIndex.x) == 1
-                || currentIndex.y == 12 && nextIndex.y == 12 && abs(nextIndex.x - currentIndex.x) == 1
+                currentIndex.y == 0 && nextIndex.y == 0
+                    && abs(nextIndex.x - currentIndex.x) == 1
+                || currentIndex.y == 12 && nextIndex.y == 12
+                    && abs(nextIndex.x - currentIndex.x) == 1
                 )
         )
             return true;
@@ -105,7 +111,8 @@ bool Field::isPirateToShipOk(Tile *pirateTile, Tile *shipTile)
     Index pirateIndex = getTileIndex(pirateTile);
     Index shipIndex = getTileIndex(shipTile);
 
-    if (abs(pirateIndex.x - shipIndex.x) <= 1 && abs(pirateIndex.y - shipIndex.y) <= 1)
+    if (abs(pirateIndex.x - shipIndex.x) <= 1
+            && abs(pirateIndex.y - shipIndex.y) <= 1)
         return checkDirection(pirateTile, shipIndex);
     else
         return false;
@@ -177,14 +184,25 @@ void Field::fill()
 
     map[10][4] = static_cast<Tile*>(new Plane); // 11-я строка поля - 1 самолет
 
-    for (col = 5; col <= 11; col++) // 11-я строка поля - 7 монет
-        map[10][col] = static_cast<Tile*>(new Money);
+    for (col = 5; col <= 9; col++) // 11-я строка поля - 5 сундуков по 1
+        map[10][col] = static_cast<Tile*>(new Money(1));
+
+    for (col = 10; col <= 11; col++) // 11-я строка поля - 2 сундука по 2
+        map[10][col] = static_cast<Tile*>(new Money(2));
 
     for (col = 0; col <= 1; col++) // 12-я строка поля - 2 воды
         map[11][col] = static_cast<Tile*>(new Water);
 
-    for (col = 2; col <= 10; col++) // 12-я строка поля - 9 монет
-        map[11][col] = static_cast<Tile*>(new Money);
+    for (col = 2; col <= 4; col++) // 12-я строка поля - 3 сундука по 2
+        map[11][col] = static_cast<Tile*>(new Money(2));
+
+    for (col = 5; col <= 7; col++) // 12-я строка поля - 3 сундука по 3
+        map[11][col] = static_cast<Tile*>(new Money(3));
+
+    for (col = 8; col <= 9; col++) // 12-я строка поля - 2 сундука по 4
+        map[11][col] = static_cast<Tile*>(new Money(4));
+
+    map[11][10] = static_cast<Tile*>(new Money(5));// 12-я строка поля - 1 сундук с 5
 
     for (col = 11; col <= 12; col++) // 12-я строка поля - 2 воды
         map[11][col] = static_cast<Tile*>(new Water);
@@ -192,7 +210,8 @@ void Field::fill()
     for (col = 0; col <= 12; col++) // 13-я строка поля - 11 воды
         map[12][col] = static_cast<Tile*>(new Water);
 
-    for (row = 2; row <= 10; row++) // 1-й и 13-й столбцы поля - 9 воды в каждом столбце
+    // 1-й и 13-й столбцы поля - 9 воды в каждом столбце
+    for (row = 2; row <= 10; row++)
     {
         map[row][0] = static_cast<Tile*>(new Water);
         map[row][12] = static_cast<Tile*>(new Water);
@@ -205,35 +224,43 @@ bool Field::checkDirection(Tile *current, Index nextIndex)
     bool result = false;
     // Смещение:
     // север: х = 0, у = 1
-    if (current->movement[N] && nextIndex.x - currentIndex.x == 0 && nextIndex.y - currentIndex.y == -1)
+    if (current->movement[N] && nextIndex.x - currentIndex.x == 0
+            && nextIndex.y - currentIndex.y == -1)
         return true;
 
     // северо-восток: х = 1, у = 1
-    if (current->movement[NE] && nextIndex.x - currentIndex.x == 1 && nextIndex.y - currentIndex.y == -1)
+    if (current->movement[NE] && nextIndex.x - currentIndex.x == 1
+            && nextIndex.y - currentIndex.y == -1)
         return true;
 
     // восток: х = 1, у = 0
-    if (current->movement[E] && nextIndex.x - currentIndex.x == 1 && nextIndex.y - currentIndex.y == 0)
+    if (current->movement[E] && nextIndex.x - currentIndex.x == 1
+            && nextIndex.y - currentIndex.y == 0)
         return true;
 
     // юго-восток: х = 1, у = -1
-    if (current->movement[SE] && nextIndex.x - currentIndex.x == 1 && nextIndex.y - currentIndex.y == 1)
+    if (current->movement[SE] && nextIndex.x - currentIndex.x == 1
+            && nextIndex.y - currentIndex.y == 1)
         return true;
 
     // юг: х = 0, у = -1
-    if (current->movement[S] && nextIndex.x - currentIndex.x == 0 && nextIndex.y - currentIndex.y == 1)
+    if (current->movement[S] && nextIndex.x - currentIndex.x == 0
+            && nextIndex.y - currentIndex.y == 1)
         return true;
 
     // юго-запад: х = -1, у  = -1
-    if (current->movement[SW] && nextIndex.x - currentIndex.x == -1 && nextIndex.y - currentIndex.y == 1)
+    if (current->movement[SW] && nextIndex.x - currentIndex.x == -1
+            && nextIndex.y - currentIndex.y == 1)
         return true;
 
     // запад: х = -1, у = 0
-    if (current->movement[W] && nextIndex.x - currentIndex.x == -1 && nextIndex.y - currentIndex.y == 0)
+    if (current->movement[W] && nextIndex.x - currentIndex.x == -1
+            && nextIndex.y - currentIndex.y == 0)
         return true;
 
     // северо-запад: х = -1, у = 1
-    if (current->movement[NW] && nextIndex.x - currentIndex.x == -1 && nextIndex.y - currentIndex.y == -1)
+    if (current->movement[NW] && nextIndex.x - currentIndex.x == -1
+            && nextIndex.y - currentIndex.y == -1)
         return true;
 
     return false;
@@ -250,7 +277,8 @@ void Field::shuffleMap()
         smallArray[row-2] = map[row][1];
 
     unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
-    std::shuffle(&smallArray[0], &smallArray[9], std::default_random_engine(seed));
+    std::shuffle(&smallArray[0], &smallArray[9],
+            std::default_random_engine(seed));
 
     for (row = 2; row <= 10; row++)
         map[row][1] = smallArray[row-2];
@@ -263,7 +291,8 @@ void Field::shuffleMap()
             largeArray[row-1] = map[row][col];
 
         seed = std::chrono::system_clock::now().time_since_epoch().count();
-        std::shuffle(&largeArray[0], &largeArray[11], std::default_random_engine(seed));
+        std::shuffle(&largeArray[0], &largeArray[11],
+                std::default_random_engine(seed));
 
         for (row = 1; row <= 11; row++)
             map[row][col] = largeArray[row-1];
@@ -275,7 +304,8 @@ void Field::shuffleMap()
         smallArray[row-2] = map[row][11];
 
     seed = std::chrono::system_clock::now().time_since_epoch().count();
-    std::shuffle(&smallArray[0], &smallArray[9], std::default_random_engine(seed));
+    std::shuffle(&smallArray[0], &smallArray[9],
+            std::default_random_engine(seed));
 
     for (row = 2; row <= 10; row++)
         map[row][11] = smallArray[row-2];
@@ -290,7 +320,8 @@ void Field::shuffleMap()
     for (row = 2; row <= 10; row++)
     {
         seed = std::chrono::system_clock::now().time_since_epoch().count();
-        std::shuffle(&map[row][1], &map[row][12], std::default_random_engine(seed));
+        std::shuffle(&map[row][1], &map[row][12],
+                std::default_random_engine(seed));
     }
 
     // Сортировка 11-й строки суши

@@ -33,7 +33,7 @@ public:
     bool isShipMoveOk(Tile* current, Tile* next);
     bool isPirateToShipOk(Tile* pirateTile, Tile* shipTile);
     void shuffleMap(); // перемешать клетки
-
+    int coins;
 private:
     void fill(); // заполнить поле клетками
     bool checkDirection(Tile* current, Index nextIndex);

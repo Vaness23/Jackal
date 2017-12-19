@@ -6,17 +6,17 @@ Pirate::Pirate()
     movementPoints = 1;
     myCoin = NULL;
 
-    setPixmap(QPixmap("/Users/Ivan/Documents/CPP/Jackal/img/pirate.png"));
+    setPixmap(QPixmap(":/pirate.png"));
 }
 
 void Pirate::moveTo(GameObject *nextTile)
 {
     setParentItem(nextTile);
 
-    if (myCoin)
-    {
-        myCoin->setParentItem(nextTile);
-    }
+//    if (myCoin)
+//    {
+//        myCoin->setParentItem(nextTile);
+//    }
 
 }
 
@@ -30,14 +30,17 @@ void Pirate::pickUpCoin(Coin *collectedCoin)
     parentTile->coins--;
 }
 
-void Pirate::dropCoin()
+Coin *Pirate::dropCoin()
 {
     GameObject* parentTile = static_cast<GameObject*>(this->parentItem());
 
     myCoin->moveBy(-25, -25);
     myCoin->setParentItem(parentTile);
     parentTile->coins++;
+
+    Coin *droppedCoin = myCoin;
     myCoin = NULL;
+    return droppedCoin;
 }
 
 bool Pirate::carriesCoin()

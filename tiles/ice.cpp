@@ -2,7 +2,7 @@
 
 Ice::Ice()
 {
-    frontSide = QPixmap("/Users/Ivan/Documents/CPP/Jackal/img/ice.png").scaledToHeight(50);
+    frontSide = QPixmap(":/ice.png").scaledToHeight(50);
 
     wait = 0;
 }

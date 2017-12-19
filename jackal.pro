@@ -80,3 +80,6 @@ HEADERS  += mainwindow.h \
 
 FORMS    += mainwindow.ui \
     game.ui
+
+RESOURCES += \
+    img/resource.qrc

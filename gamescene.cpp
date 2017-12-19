@@ -23,8 +23,8 @@ void GameScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
 
         switch(object->getType())
         {
-//            case coin:
-//                object = object->parentItem();
+            case coin:
+                object = static_cast<GameObject*>(object->parentItem());
             case ship:
                 chosenShip = static_cast<Ship*>(object);
                 break;

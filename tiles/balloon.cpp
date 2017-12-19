@@ -2,7 +2,7 @@
 
 Balloon::Balloon()
 {
-    frontSide = QPixmap("/Users/Ivan/Documents/CPP/Jackal/img/balloon.png").scaledToHeight(50);
+    frontSide = QPixmap(":/balloon.png").scaledToHeight(50);
 
     wait = 0;
 }

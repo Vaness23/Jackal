@@ -18,7 +18,6 @@ public:
     bool visible; // есть ли клетка на поле
     int wait; // количество ходов ожидания
     bool movement[8]; // направления следующего хода
-//    int coins; // монеты на клетке
     void discover();
     virtual void play(Pirate* pirate);
     objectType getType();
@@ -26,7 +25,6 @@ public:
     bool isDiscovered();
 protected:
     bool discovered; // открыта ли клетка
-//    QString frontSidePath; // путь к изображению лицевой стороны клетки
     QPixmap backSide, frontSide;
 };
 

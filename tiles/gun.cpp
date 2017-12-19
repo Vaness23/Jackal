@@ -2,7 +2,7 @@
 
 Gun::Gun()
 {
-    frontSide = QPixmap("/Users/Ivan/Documents/CPP/Jackal/img/gun.png").scaledToHeight(50);
+    frontSide = QPixmap(":/gun.png").scaledToHeight(50);
 
     wait = 0;
 }

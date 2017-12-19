@@ -1,6 +1,7 @@
 #ifndef GAMEOBJECT_H
 #define GAMEOBJECT_H
 #include <QGraphicsItem>
+#include <QString>
 
 enum objectType{tile, pirate, ship, coin};
 

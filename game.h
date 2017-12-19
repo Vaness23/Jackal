@@ -18,6 +18,11 @@ class Game : public QWidget
 {
     Q_OBJECT
 
+
+//начать ход (активирует нужные фишки и переворачивает поле)
+//сделать ход (передвижения)
+//завершить ход (поменять игрока, занулить выбранные клетки/фишки)
+
 public:
     explicit Game(QWidget *parent = 0);
     ~Game();
@@ -40,6 +45,9 @@ private:
     bool checkTile(Ship* chosenShip, Tile* chosenTile);
     bool checkShip(Pirate* chosenPirate, Ship* chosenShip);
     QString movement1, movement2, movement3, movement4; // вывод ОП игроков на экран
+    void updateScore();
+    bool gameOver();
+    void buttonsEnableCheck();
 protected:
     void paintEvent (QPaintEvent *event);
     void mousePressEvent(QMouseEvent *mouseEvent);

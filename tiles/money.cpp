@@ -27,19 +27,19 @@ Money::Money()
     switch (chest[numPic])
     {
         case 1:
-            frontSide = QPixmap("/Users/Ivan/Documents/CPP/Jackal/img/money1.png").scaledToHeight(50);
+            frontSide = QPixmap(":/money1.png").scaledToHeight(50);
             break;
         case 2:
-            frontSide = QPixmap("/Users/Ivan/Documents/CPP/Jackal/img/money2.png").scaledToHeight(50);
+            frontSide = QPixmap(":/money2.png").scaledToHeight(50);
             break;
         case 3:
-            frontSide = QPixmap("/Users/Ivan/Documents/CPP/Jackal/img/money3.png").scaledToHeight(50);
+            frontSide = QPixmap(":/money3.png").scaledToHeight(50);
             break;
         case 4:
-            frontSide = QPixmap("/Users/Ivan/Documents/CPP/Jackal/img/money4.png").scaledToHeight(50);
+            frontSide = QPixmap(":/money4.png").scaledToHeight(50);
             break;
         case 5:
-            frontSide = QPixmap("/Users/Ivan/Documents/CPP/Jackal/img/money5.png").scaledToHeight(50);
+            frontSide = QPixmap(":/money5.png").scaledToHeight(50);
             break;
     }
 }
@@ -53,19 +53,19 @@ Money::Money(int coins)
     switch (coins)
     {
         case 1:
-            frontSide = QPixmap("/Users/Ivan/Documents/CPP/Jackal/img/money1.png").scaledToHeight(50);
+            frontSide = QPixmap(":/money1.png").scaledToHeight(50);
             break;
         case 2:
-            frontSide = QPixmap("/Users/Ivan/Documents/CPP/Jackal/img/money2.png").scaledToHeight(50);
+            frontSide = QPixmap(":/money2.png").scaledToHeight(50);
             break;
         case 3:
-            frontSide = QPixmap("/Users/Ivan/Documents/CPP/Jackal/img/money3.png").scaledToHeight(50);
+            frontSide = QPixmap(":/money3.png").scaledToHeight(50);
             break;
         case 4:
-            frontSide = QPixmap("/Users/Ivan/Documents/CPP/Jackal/img/money4.png").scaledToHeight(50);
+            frontSide = QPixmap(":/money4.png").scaledToHeight(50);
             break;
         case 5:
-            frontSide = QPixmap("/Users/Ivan/Documents/CPP/Jackal/img/money5.png").scaledToHeight(50);
+            frontSide = QPixmap(":/money5.png").scaledToHeight(50);
             break;
     }
 }

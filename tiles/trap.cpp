@@ -2,7 +2,7 @@
 
 Trap::Trap()
 {
-    frontSide = QPixmap("/Users/Ivan/Documents/CPP/Jackal/img/trap.png").scaledToHeight(50);
+    frontSide = QPixmap(":/trap.png").scaledToHeight(50);
 
     wait = 3;
 }

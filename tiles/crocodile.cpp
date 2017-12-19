@@ -2,7 +2,7 @@
 
 Crocodile::Crocodile()
 {
-    frontSide = QPixmap("/Users/Ivan/Documents/CPP/Jackal/img/crocodile.png").scaledToHeight(50);
+    frontSide = QPixmap(":/crocodile.png").scaledToHeight(50);
 
     wait = 0;
 }

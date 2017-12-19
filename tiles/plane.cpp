@@ -2,7 +2,7 @@
 
 Plane::Plane()
 {
-    frontSide = QPixmap("/Users/Ivan/Documents/CPP/Jackal/img/plane.png").scaledToHeight(50);
+    frontSide = QPixmap(":/plane.png").scaledToHeight(50);
 
     wait = 0;
 }

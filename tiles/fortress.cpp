@@ -2,7 +2,7 @@
 
 Fortress::Fortress()
 {
-    frontSide = QPixmap("/Users/Ivan/Documents/CPP/Jackal/img/fortress.png").scaledToHeight(50);
+    frontSide = QPixmap(":/fortress.png").scaledToHeight(50);
 
     wait = 1;
 }
