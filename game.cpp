@@ -20,7 +20,6 @@ Game::Game(QWidget *parent) :
     players[3] = new Player("blue");
 
     activePlayerNum = 0;
-    activePirate= NULL;
 }
 
 Game::~Game()
@@ -55,9 +54,8 @@ void Game::beginTurn()
         if (players[activePlayerNum]->pirates[i].movementPoints == 0)
             players[activePlayerNum]->pirates[i].movementPoints++;
     players[activePlayerNum]->shipPlayed = false;
-//    players[activePlayerNum]->piratePlayed = false;
+    players[activePlayerNum]->piratePlayed = false;
 
-    activePirate = NULL;
     switch(activePlayerNum)
     {
         case 0: ui->turnLbl->setText("Ходят: Белые");
@@ -112,8 +110,55 @@ void Game::arrangeCoins()
 
 void Game::makeTurn()
 {
+    // -------------если выбраны пират и клетка-------------------
+    if ((scene->chosenPirate && scene->chosenTile)
+            // если игрок не походил кораблем
+        && (!players[activePlayerNum]->shipPlayed) &&
+        (   // если пират принадлежит активному игроку
+            scene->chosenPirate == &players[activePlayerNum]->pirates[0]
+            || scene->chosenPirate == &players[activePlayerNum]->pirates[1]
+            || scene->chosenPirate == &players[activePlayerNum]->pirates[2]
+            || scene->chosenPirate == &players[activePlayerNum]->pirates[3]
+        )
+        // если пирату доступна клетка
+        && checkTile(scene->chosenPirate, scene->chosenTile))
+    {
+        if (scene->chosenPirate->movementPoints <= 0)
+        {
+            // пират пропускает ходы
+        }
+        else
+        {
+            scene->chosenPirate->moveTo(scene->chosenTile);
+            if (scene->chosenTile->getTileType() == money
+                    && !scene->chosenTile->isDiscovered())
+                arrangeCoins();
+            scene->chosenTile->play(scene->chosenPirate);
+            ui->graphicsView->update();
+        }
+
+        players[activePlayerNum]->piratePlayed = true;
+        if (scene->chosenPirate->movementPoints <= 0)
+            endTurn();
+    }
+
+    // -----------если выбраны корабль и клетка--------------------
+    else if (scene->chosenShip && scene->chosenTile
+            // если корабль принадлежит активному игроку
+        && scene->chosenShip == &players[activePlayerNum]->ship
+            // если игрок не ходил пиратом
+        && !players[activePlayerNum]->piratePlayed
+            // если кораблю доступна клетка
+        && checkTile(scene->chosenShip, scene->chosenTile))
+    {
+        players[activePlayerNum]->shipPlayed = true;
+        scene->chosenShip->moveTo(scene->chosenTile);
+        ui->graphicsView->update();
+        endTurn();
+    }
+
     // ----------------если выбраны пират и корабль---------------------
-    if (scene->chosenPirate && scene->chosenShip &&
+    else if (scene->chosenPirate && scene->chosenShip &&
         (   // если пират принадлежит активному игроку
             scene->chosenPirate == &players[activePlayerNum]->pirates[0]
             || scene->chosenPirate == &players[activePlayerNum]->pirates[1]
@@ -122,93 +167,29 @@ void Game::makeTurn()
         )
             // если игрок не ходил кораблем
         && !players[activePlayerNum]->shipPlayed
-            // если игрок не ходил другим пиратом
-        && (!activePirate || activePirate == scene->chosenPirate))
-
-    {
             // если пирату доступен переход на корабль
-        if (checkShip(scene->chosenPirate, scene->chosenShip))
-        {
-                // если пират пришел с другой клетки
-            if (scene->chosenPirate->movementPoints == 1)
-            {
-                    //если у пирата есть монета, то защитать ее игроку
-                if (scene->chosenPirate->carriesCoin())
-                {
-                    players[activePlayerNum]->coins++;
-                    field->coins--;
-                    Coin *droppedCoin = scene->chosenPirate->dropCoin();
-                    scene->removeItem(droppedCoin);
-                    delete droppedCoin;
-                    updateScore();
-                }
-                scene->chosenPirate->moveTo(scene->chosenShip);
-                ui->graphicsView->update();
-                //            players[activePlayerNum]->piratePlayed = true;
-                activePirate = scene->chosenPirate;
-            }
-            //        if (scene->chosenPirate->movementPoints <= 0)
-            endTurn();
-        }
-    }
-
-    // -------------если выбраны пират и клетка-------------------
-    else if ((scene->chosenPirate && scene->chosenTile)
-            // если игрок не походил кораблем
-        && (!players[activePlayerNum]->shipPlayed)
-            // если игрок не ходил другим пиратом
-        && (!activePirate || activePirate == scene->chosenPirate)
-        &&
-        (   // если пират принадлежит активному игроку
-            scene->chosenPirate == &players[activePlayerNum]->pirates[0]
-            || scene->chosenPirate == &players[activePlayerNum]->pirates[1]
-            || scene->chosenPirate == &players[activePlayerNum]->pirates[2]
-            || scene->chosenPirate == &players[activePlayerNum]->pirates[3]
-        ))
+        && checkShip(scene->chosenPirate, scene->chosenShip))
     {
-        // если пирату доступна клетка
-        if (checkTile(scene->chosenPirate, scene->chosenTile))
+            // если пират пришел с другой клетки
+        if (scene->chosenPirate->movementPoints == 1)
         {
-            if (scene->chosenPirate->movementPoints <= 0)
+            //если у пирата есть монета, то защитать ее игроку
+            if (scene->chosenPirate->carriesCoin())
             {
-                // пират пропускает ходы
+                players[activePlayerNum]->coins++;
+                field->coins--;
+                Coin *droppedCoin = scene->chosenPirate->dropCoin();
+                scene->removeItem(droppedCoin);
+                delete droppedCoin;
+                updateScore();
             }
-            else
-            {
-                scene->chosenPirate->moveTo(scene->chosenTile);
-                if (scene->chosenTile->getTileType() == money
-                        && !scene->chosenTile->isDiscovered())
-                    arrangeCoins();
-                scene->chosenTile->play(scene->chosenPirate);
-                ui->graphicsView->update();
-            }
-
-            //        players[activePlayerNum]->piratePlayed = true;
-            activePirate = scene->chosenPirate;
-            if (scene->chosenPirate->movementPoints <= 0)
-                endTurn();
-        }
-    }
-
-    // -----------если выбраны корабль и клетка--------------------
-    else if (scene->chosenShip && scene->chosenTile
-            // если корабль принадлежит активному игроку
-        && scene->chosenShip == &players[activePlayerNum]->ship
-            // если игрок не ходил пиратом
-//        && !players[activePlayerNum]->piratePlayed
-        && !activePirate)
-    {
-            // если кораблю доступна клетка
-        if (checkTile(scene->chosenShip, scene->chosenTile))
-        {
-            players[activePlayerNum]->shipPlayed = true;
-            scene->chosenShip->moveTo(scene->chosenTile);
+            scene->chosenPirate->moveTo(scene->chosenShip);
             ui->graphicsView->update();
-            endTurn();
+            players[activePlayerNum]->piratePlayed = true;
         }
+//        if (scene->chosenPirate->movementPoints <= 0)
+        endTurn();
     }
-
-
 }
 
 void Game::endTurn()
@@ -315,10 +296,10 @@ bool Game::gameOver()
         }
 
         QMessageBox* mes = new QMessageBox;
-        mes->setIconPixmap(players[player1]->pirates[0].pixmap());
+        mes->setIconPixmap(players[activePlayerNum]->pirates[0].pixmap());
         mes->setWindowTitle("Game over!");
         mes->setText(winner + " победили со счетом: " +
-                         QString::number(players[player1]->coins));
+                         QString::number(players[activePlayerNum]->coins));
         mes->exec();
         return true;
     }
