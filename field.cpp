@@ -7,6 +7,8 @@ template <class T>
 Field<T>::Field()
 {
     fill(); // заполнение поля клетками
+    seed = std::chrono::system_clock::now().time_since_epoch().count();
+    shuffleMap();
     shuffleMap();
     coins = 37;
 }
@@ -32,10 +34,13 @@ Index Field<T>::getTileIndex(T tile)
 template <class T>
 bool Field<T>::isPirateMoveOk(T current, T next)
 {
+    if (next->getType() == ship)
+        return isPirateToShipOk(current, next);
+    //-------------------С суши на корабль-------------------
     Index currentIndex, nextIndex = getTileIndex(next);
 
     // -------------------С корабля на сушу------------------
-    if (current->getType() == ship)
+    if (current->getType() == ship && next->getType() != water)
     {
         current = static_cast<T>(current->parentItem());
         currentIndex = getTileIndex(current);
@@ -279,6 +284,7 @@ bool Field<T>::checkDirection(T current, Index nextIndex)
 template <class T>
 void Field<T>::shuffleMap()
 {
+    std::default_random_engine engine(seed);
     T smallArray[9], largeArray[11];
     int row;
 
@@ -286,10 +292,9 @@ void Field<T>::shuffleMap()
 
     for (row = 2; row <= 10; row++)
         smallArray[row-2] = map[row][1];
-
-    unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
-    std::shuffle(&smallArray[0], &smallArray[9],
-            std::default_random_engine(seed));
+//    seed = std::chrono::system_clock::now().time_since_epoch().count();
+    std::shuffle(&smallArray[0], &smallArray[9], engine);
+            //std::default_random_engine(seed));
 
     for (row = 2; row <= 10; row++)
         map[row][1] = smallArray[row-2];
@@ -301,9 +306,9 @@ void Field<T>::shuffleMap()
         for (row = 1; row <= 11; row++)
             largeArray[row-1] = map[row][col];
 
-        seed = std::chrono::system_clock::now().time_since_epoch().count();
-        std::shuffle(&largeArray[0], &largeArray[11],
-                std::default_random_engine(seed));
+//        seed = std::chrono::system_clock::now().time_since_epoch().count();
+        std::shuffle(&largeArray[0], &largeArray[11], engine);
+                //std::default_random_engine(seed));
 
         for (row = 1; row <= 11; row++)
             map[row][col] = largeArray[row-1];
@@ -314,31 +319,31 @@ void Field<T>::shuffleMap()
     for (row = 2; row <= 10; row++)
         smallArray[row-2] = map[row][11];
 
-    seed = std::chrono::system_clock::now().time_since_epoch().count();
-    std::shuffle(&smallArray[0], &smallArray[9],
-            std::default_random_engine(seed));
+//    seed = std::chrono::system_clock::now().time_since_epoch().count();
+    std::shuffle(&smallArray[0], &smallArray[9], engine);
+            //std::default_random_engine(seed));
 
     for (row = 2; row <= 10; row++)
         map[row][11] = smallArray[row-2];
 
     // Сортировка 1-й строки суши
 
-    seed = std::chrono::system_clock::now().time_since_epoch().count();
-    std::shuffle(&map[1][2], &map[1][11], std::default_random_engine(seed));
+//    seed = std::chrono::system_clock::now().time_since_epoch().count();
+    std::shuffle(&map[1][2], &map[1][11], engine);//std::default_random_engine(seed));
 
     // Сортировка со 2-й по 10-ю строку суши
 
     for (row = 2; row <= 10; row++)
     {
-        seed = std::chrono::system_clock::now().time_since_epoch().count();
-        std::shuffle(&map[row][1], &map[row][12],
-                std::default_random_engine(seed));
+//        seed = std::chrono::system_clock::now().time_since_epoch().count();
+        std::shuffle(&map[row][1], &map[row][12], engine);
+                //std::default_random_engine(seed));
     }
 
     // Сортировка 11-й строки суши
 
-    seed = std::chrono::system_clock::now().time_since_epoch().count();
-    std::shuffle(&map[11][2], &map[11][11], std::default_random_engine(seed));
+//    seed = std::chrono::system_clock::now().time_since_epoch().count();
+    std::shuffle(&map[11][2], &map[11][11], engine);//std::default_random_engine(seed));
 }
 
 template class Field<Tile*>;

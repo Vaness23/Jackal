@@ -37,6 +37,7 @@ private:
     Field<Tile*>* field;
     Player* players[4]; // список игроков
     int activePlayerNum; // номер активного игрока
+    Pirate* activePirate;
     void arrangeShips(); // расставить корабли и пиратов
     void arrangeCoins(); // разложить монеты
     void makeTurn(); // сделать ход (передвижение)

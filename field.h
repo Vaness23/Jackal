@@ -39,4 +39,5 @@ private:
     void fill(); // заполнить поле клетками
     bool checkDirection(T current, Index nextIndex);
     T map[13][13]; // поле
+    unsigned seed;
 };
