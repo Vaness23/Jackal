@@ -32,10 +32,11 @@ Index Field<T>::getTileIndex(T tile)
 template <class T>
 bool Field<T>::isPirateMoveOk(T current, T next)
 {
+    //-------------------С суши на корабль-------------------
     Index currentIndex, nextIndex = getTileIndex(next);
 
     // -------------------С корабля на сушу------------------
-    if (current->getType() == ship)
+    if (current->getType() == ship && next->getType() != water)
     {
         current = static_cast<T>(current->parentItem());
         currentIndex = getTileIndex(current);
