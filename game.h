@@ -49,6 +49,7 @@ private:
     void updateScore();
     bool gameOver();
     void buttonsEnableCheck();
+    bool pirateBelongsToActivePlayer(Pirate* pirate);
 protected:
     void paintEvent (QPaintEvent *event);
     void mousePressEvent(QMouseEvent *mouseEvent);

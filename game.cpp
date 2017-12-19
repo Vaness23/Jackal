@@ -242,6 +242,18 @@ bool Game::checkTile(Pirate *chosenPirate, Tile *chosenTile)
     // если пират находится вне корабля
     if (currentTile->getType() != ship)
     {
+        // на крокодила ходить нельзя
+        if (chosenTile->getTileType() == crocodile)
+        {
+            chosenTile->discover();
+            endTurn();
+            return false;
+        }
+
+        // на закрытые клетки нельзя ходить с монетами
+        if (chosenPirate->carriesCoin() && !chosenTile->isDiscovered())
+            return false;
+
         // пират стоит на клетке с задержкой передвижения
         if (currentTile->getTileType() == spinner ||
             currentTile->getTileType() == trap ||
@@ -287,20 +299,18 @@ void Game::updateScore()
 bool Game::gameOver()
 {
     // поиск двух лидеров и кол-ва их монет
-    int p, coins1 = 0, coins2 = 0, player1 = -1, player2= -1;
+    int p, coins1 = 0, coins2 = 0, player1 = -1;
     for (p = 0; p < 4; p++)
-    {
         if (players[p]->coins >= coins1)
         {
             player1 = p;
             coins1 = players[p]->coins;
         }
-        else if (players[p]->coins >= coins2)
-        {
-            player2 = p;
+
+    for (p = 0; p < 4; p++)
+        if (players[p]->coins >= coins2 && p != player1)
             coins2 = players[p]->coins;
-        }
-    }
+
 
     // условие окончания игры
     if (coins1 >= coins2 + field->coins)
@@ -331,7 +341,7 @@ bool Game::gameOver()
 
 void Game::buttonsEnableCheck()
 {
-    if (scene->chosenPirate)
+    if (scene->chosenPirate && pirateBelongsToActivePlayer(scene->chosenPirate))
     {
         Tile* currentTile = static_cast<Tile*>(scene->chosenPirate->parentItem());
         if (scene->chosenPirate->carriesCoin())
@@ -350,6 +360,14 @@ void Game::buttonsEnableCheck()
         ui->pickUpCoinButton->setEnabled(false);
         ui->dropCoinButton->setEnabled(false);
     }
+}
+
+bool Game::pirateBelongsToActivePlayer(Pirate *pirate)
+{
+    for (int i = 0; i < 4; i++)
+        if (pirate == &players[activePlayerNum]->pirates[i])
+            return true;
+    return false;
 }
 
 void Game::paintEvent(QPaintEvent *event)
@@ -379,7 +397,7 @@ void Game::mousePressEvent(QMouseEvent *mouseEvent)
 
 void Game::on_pickUpCoinButton_clicked()
 {
-    if (scene->chosenPirate)
+    if (scene->chosenPirate && pirateBelongsToActivePlayer(scene->chosenPirate))
     {
         Tile* pirateTile = static_cast<Tile*>(scene->chosenPirate->parentItem());
         GameObject *item;
@@ -409,7 +427,8 @@ void Game::on_pickUpCoinButton_clicked()
 
 void Game::on_dropCoinButton_clicked()
 {
-    if (scene->chosenPirate && scene->chosenPirate->carriesCoin())
+    if (scene->chosenPirate && scene->chosenPirate->carriesCoin()
+            && pirateBelongsToActivePlayer(scene->chosenPirate))
     {
         scene->chosenPirate->dropCoin();
         ui->graphicsView->update();
