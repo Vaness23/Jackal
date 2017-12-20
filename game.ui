@@ -346,7 +346,7 @@
         <string>Взять монету</string>
        </property>
        <property name="shortcut">
-        <string>C</string>
+        <string notr="true">C</string>
        </property>
       </widget>
      </item>

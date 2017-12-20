@@ -48,7 +48,7 @@ private:
     QString movement1, movement2, movement3, movement4; // вывод ОП игроков на экран
     void updateScore();
     bool gameOver();
-    void buttonsEnableCheck();
+    void buttonsEnableCheck(); // активность кнопок для монет
     bool pirateBelongsToActivePlayer(Pirate* pirate);
 protected:
     void paintEvent (QPaintEvent *event);

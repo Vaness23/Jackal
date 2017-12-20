@@ -198,7 +198,7 @@ void Game::makeTurn()
         && scene->chosenShip == &players[activePlayerNum]->ship
             // если игрок не ходил пиратом
 //        && !players[activePlayerNum]->piratePlayed
-        && !activePirate)
+        && !activePirate && !scene->chosenShip->isEmpty())
     {
             // если кораблю доступна клетка
         if (checkTile(scene->chosenShip, scene->chosenTile))
@@ -241,7 +241,8 @@ bool Game::checkTile(Pirate *chosenPirate, Tile *chosenTile)
 //        currentTile = static_cast<Tile*>(currentTile->parentItem());
 
     // на крокодила ходить нельзя
-    if (chosenTile->getTileType() == crocodile)
+    if (chosenTile->getTileType() == crocodile
+            && field->isPirateMoveOk(currentTile, chosenTile))
     {
         chosenTile->discover();
         endTurn();
@@ -277,9 +278,8 @@ bool Game::checkTile(Pirate *chosenPirate, Tile *chosenTile)
 
 bool Game::checkTile(Ship *chosenShip, Tile *chosenTile)
 {
-    Tile* currentTile = static_cast<Tile*>(chosenShip->parentItem());
-    return field->isShipMoveOk(currentTile, chosenTile);
-
+        Tile* currentTile = static_cast<Tile*>(chosenShip->parentItem());
+        return field->isShipMoveOk(currentTile, chosenTile);
 }
 
 bool Game::checkShip(Pirate *chosenPirate, Ship *chosenShip)
