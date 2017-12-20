@@ -13,6 +13,7 @@ Game::Game(QWidget *parent) :
 
     ui->dropCoinButton->setEnabled(false);
     ui->pickUpCoinButton->setEnabled(true);
+    ui->shuffleBtn->setVisible(false);
 
     players[0] = new Player("white");
     players[1] = new Player("black");
@@ -239,16 +240,17 @@ bool Game::checkTile(Pirate *chosenPirate, Tile *chosenTile)
 //    if (currentTile->getType() == ship)
 //        currentTile = static_cast<Tile*>(currentTile->parentItem());
 
+    // на крокодила ходить нельзя
+    if (chosenTile->getTileType() == crocodile)
+    {
+        chosenTile->discover();
+        endTurn();
+        return false;
+    }
+
     // если пират находится вне корабля
     if (currentTile->getType() != ship)
     {
-        // на крокодила ходить нельзя
-        if (chosenTile->getTileType() == crocodile)
-        {
-            chosenTile->discover();
-            endTurn();
-            return false;
-        }
 
         // на закрытые клетки нельзя ходить с монетами
         if (chosenPirate->carriesCoin() && !chosenTile->isDiscovered())

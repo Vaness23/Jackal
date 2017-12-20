@@ -34,13 +34,14 @@ Index Field<T>::getTileIndex(T tile)
 template <class T>
 bool Field<T>::isPirateMoveOk(T current, T next)
 {
+    //-------------------С суши или моря на корабль-------------------
     if (next->getType() == ship)
         return isPirateToShipOk(current, next);
-    //-------------------С суши на корабль-------------------
+
     Index currentIndex, nextIndex = getTileIndex(next);
 
     // -------------------С корабля на сушу------------------
-    if (current->getType() == ship && next->getType() != water)
+    if (current->getType() == ship && next->getTileType() != water)
     {
         current = static_cast<T>(current->parentItem());
         currentIndex = getTileIndex(current);
@@ -53,11 +54,15 @@ bool Field<T>::isPirateMoveOk(T current, T next)
             return false;
     }
 
+    // ------------------С корабля в воду----------------------
+    if (current->getType() == ship && next->getTileType() == water)
+        return false;
+
     currentIndex = getTileIndex(current);
 
 
-    // -----------------Движение с суши в воду-----------------
-    if (next->getTileType() == water)
+    // -------------------С суши в воду-----------------
+    if (current->getTileType() != water && next->getTileType() == water)
     {
         // если пирата перебрасывает со стрелки
         if (current->getTileType() == arrow)
@@ -67,7 +72,7 @@ bool Field<T>::isPirateMoveOk(T current, T next)
             return false;
     }
 
-    // --------------------Движение в воде-----------------------
+    // ----------------------В воде-----------------------
     if (current->getTileType() == water && next->getTileType() == water)
     {
         if (abs(nextIndex.x - currentIndex.x) == 1 /*&& nextIndex.y == currentIndex.y*/
@@ -75,11 +80,11 @@ bool Field<T>::isPirateMoveOk(T current, T next)
             return true;
     }
 
-    // -----------------Движение из воды на сушу------------------
+    // -----------------Из воды на сушу------------------
     else if (current->getTileType() == water && next->getTileType() != water)
         return false;
 
-    // ------------------Движение по суше-------------------------
+    // ---------------------По суше-------------------------
     else if ((abs(nextIndex.x - currentIndex.x) <= 1)
              && (abs(nextIndex.y - currentIndex.y) <= 1))
         return checkDirection(current, nextIndex);

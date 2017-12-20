@@ -1,4 +1,4 @@
-#include "aborigine.h"
+ #include "aborigine.h"
 
 Aborigine::Aborigine()
 {

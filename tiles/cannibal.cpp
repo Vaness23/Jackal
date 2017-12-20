@@ -4,7 +4,7 @@ Cannibal::Cannibal()
 {
     frontSide = QPixmap(":/cannibal.png").scaledToHeight(50);
 
-    wait = 1;
+    wait = 99;
 }
 
 void Cannibal::play(Pirate *pirate)

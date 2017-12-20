@@ -6,6 +6,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    ui->logo->setPixmap(QPixmap(":/logo.png").scaledToWidth(300));
 }
 
 MainWindow::~MainWindow()
